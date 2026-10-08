@@ -6,7 +6,7 @@ Status: local preparation only. This checklist does not authorize remote creatio
 
 - Preserve the clean competition checkout at `5b649c4bdf4a9372c9f890816835c100b5be0d01`; keep Signal Foundry attribution and third-party notices.
 - Use the independently reviewed 0.3.0 local commit on `oss/local-0.3.0`; keep the 0.2.0 and 0.2.1 artifacts/receipts unchanged.
-- Inspect `docs/evidence/VALIDATION_0.3.0.md`, `MCP_0.3.0.md` and `SITE_0.3.0.md` for exact phase-specific tests, package acceptance, client checks and rendered QA.
+- Inspect `docs/evidence/VALIDATION_0.3.0.md`, `MCP_0.3.0.md`, `SITE_0.3.0.md` and `PRIVATE_SITE_QA_0.3.0.md` for exact phase-specific tests, package acceptance, client checks and the completed private rendered QA.
 - Install the exact release asset in a clean separate prefix with scripts disabled, run two demos and their offline HTML reports, and confirm retained checks, unique output and unchanged installed bytes. Match the site download SHA-256 to that asset.
 - Include the tarball, SHA256SUMS, QUICKSTART and release notes. Initial distribution is the GitHub release, not npm; `private:true` stays set.
 

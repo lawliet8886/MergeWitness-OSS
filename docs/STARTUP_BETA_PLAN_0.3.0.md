@@ -1,6 +1,8 @@
 # MergeWitness 0.3.0 local implementation contract
 
-Binding brief: the in-chat startup/product plan approved on 2026-10-08. Founder solo; independent MIT core plus integration pilots; local HTML report; no new spending; Anthropic application after an external pilot. The OpenAI application has a separate evidence gate. Implementation authorization covers local reversible work only.
+Binding brief: the in-chat startup/product plan approved on 2026-10-08. Founder solo; independent MIT core plus integration pilots; local HTML report; no new spending; Anthropic application after an external pilot. The OpenAI application has a separate evidence gate. Initial implementation authorization covered local reversible work only.
+
+Later authorization on 2026-10-08: the user requested a separate owner-private ChatGPT Site for visual validation and instructed continued work. That private copy was deployed and inspected in the internal browser; [current rendered checkpoint](evidence/PRIVATE_SITE_QA_0.3.0.md). Public deployment, the independent public repository, outreach and applications remain separately gated.
 
 Baseline: `cd1984c7d8c8e94c2f4f981fcec3e4cefadcb667`, independent branch `oss/local-0.3.0`. Upstream competition checkout remains read-only at `5b649c4bdf4a9372c9f890816835c100b5be0d01`. Preserve the existing 0.2.1 tarball and receipts.
 

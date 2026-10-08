@@ -16,7 +16,7 @@ O núcleo continua MIT, com atribuição Signal Foundry. A origem é o [protóti
 
 O plano combina software aberto com ajuda de integração. Um serviço futuro poderia apoiar a escolha da sequência, a declaração dos requisitos e a adoção no fluxo de revisão da equipe. Se o mesmo trabalho aparecer repetidamente em equipes diferentes, isso pode indicar uma oportunidade de software: adaptar entradas, organizar evidências e facilitar revisão e comparação. Se cada caso exigir investigação artesanal, teremos uma hipótese de serviço com outra economia. Ainda não há preço, demanda ou resultado medido para decidir entre essas possibilidades.
 
-O viewer HTML local da 0.3.0 foi implementado para tornar evaluation e repair mais fáceis de inspecionar, mantendo os JSON como evidência. O pacote exato passou na instalação local no Windows, com dois demos e seus relatórios, e a suíte completa passou com 88 testes. A [aceitação técnica](evidence/VALIDATION_0.3.0.md) não encerra a revisão visual da nova versão, que permanece bloqueada pela ferramenta. Isso não é instalação por cliente.
+O viewer HTML local da 0.3.0 foi implementado para tornar evaluation e repair mais fáceis de inspecionar, mantendo os JSON como evidência. O pacote exato passou na instalação local no Windows, com dois demos e seus relatórios, e a suíte completa passou com 88 testes. A [aceitação técnica](evidence/VALIDATION_0.3.0.md) foi complementada pela [revisão visual da cópia privada](evidence/PRIVATE_SITE_QA_0.3.0.md): desktop/mobile, EN/PT, relatórios, teclado, clipboard, downloads e vídeo histórico foram conferidos no escopo registrado. São verificações do proprietário/agente, sem instalação por cliente ou validação externa.
 
 [QuietClash](https://github.com/arbade/quietclash) e [mumei](https://github.com/iroha924/mumei) apresentam ideias sobrepostas de comparação comportamental e proteção de checks. O [posicionamento](POSITIONING.md) registra o alcance da comparação disponível e suas limitações. Não reivindicamos novidade geral nem superioridade.
 
@@ -39,13 +39,13 @@ O [kit do piloto](PILOT_KIT.md) contém perguntas antes do pitch, consentimento,
 | Usuários, clientes e receita | Nenhum comprovado |
 | Integração ou uso de Claude no produto | Nenhum comprovado |
 | Empresa formal e data de início empresarial | Não verificadas |
-| Pacote/viewer 0.3.0 | Aceitação técnica local concluída; revisão visual da nova versão pendente |
+| Pacote/viewer 0.3.0 | Aceitação técnica e revisão da cópia privada concluídas no escopo registrado; validação externa pendente |
 
 As metas de aprendizagem são três de cinco reproduções sem ajuda em cerca de dez minutos, um caso real externo e dois retornos concretos em 7–14 dias. Registrar falhas e intervenções é parte do resultado. Esses números são metas internas, não requisitos de programas de apoio.
 
 ## Próximas decisões
 
-Primeiro, revisar visualmente o HTML real e o site local da 0.3.0 já testada tecnicamente. Depois, com autorização para distribuição e contato, executar o protocolo externo e documentar o caso. A decisão comercial deve usar o problema anterior, o trabalho necessário, o benefício observado e o retorno da equipe; não apenas elogios ou instalação concluída.
+Agora, com o pacote e a revisão privada conferidos, preparar a distribuição pública e executar o protocolo externo somente após autorização para publicação e contato. A decisão comercial deve usar o problema anterior, o trabalho necessário, o benefício observado e o retorno da equipe; não apenas elogios ou instalação concluída.
 
 A candidatura à Anthropic será preparada para avaliação **depois de um piloto real**, conforme a decisão do fundador. Isso é nosso gate de evidência. A aprovação continua discricionária e considera, entre outros fatores, tração, financiamento e integração/uso de Claude. [Termos oficiais](https://www.anthropic.com/startup-program-official-terms).
 
