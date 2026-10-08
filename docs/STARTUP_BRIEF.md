@@ -2,6 +2,8 @@
 
 Preparado em 08/10/2026. Este documento descreve uma iniciativa de software de fundador solo, com núcleo MIT e pilotos de integração. Ainda não há validação comercial externa. A data de início da atividade empresarial, a constituição formal e o histórico de financiamento não foram verificados.
 
+Uma [apresentação curta em inglês](STARTUP_ONE_PAGE_EN.md) foi preparada para revisão. O novo vídeo tem [roteiro bilíngue](VIDEO_STORYBOARD_0.3.0.md) e prévia visual sem narração final. Uma proposta encaminhada do [Claude gratuito pela web passou na verificação local e em uma análise nova](CLAUDE_WEB_WORKFLOW.md), sem criar assinatura ou cobrança de API. A origem no provedor é informada pelo usuário, sem captura independente de interface/modelo. A integração de modelo por Claude Code/MCP permanece separada e não comprovada.
+
 ## O problema que queremos testar
 
 Uma equipe pequena de Node pode integrar duas mudanças que funcionam separadamente e descobrir um erro quando elas interagem. A hipótese é que o responsável técnico valorize uma sequência curta que reproduza o erro, compare as revisões e ajude a revisar uma correção sem perder os requisitos das duas mudanças.
@@ -37,7 +39,7 @@ O [kit do piloto](PILOT_KIT.md) contém perguntas antes do pitch, consentimento,
 | Casos reais externos reproduzidos | 0 |
 | Retornos concretos em 7–14 dias | 0 |
 | Usuários, clientes e receita | Nenhum comprovado |
-| Integração ou uso de Claude no produto | Nenhum comprovado |
+| Proposta assistida por Claude | Uma resposta web encaminhada pelo usuário, verificada e repetida localmente em caso sintético; integração Claude Code/MCP e uso por clientes não comprovados |
 | Empresa formal e data de início empresarial | Não verificadas |
 | Pacote/viewer 0.3.0 | Aceitação técnica e revisão da cópia privada concluídas no escopo registrado; validação externa pendente |
 

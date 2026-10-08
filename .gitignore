@@ -15,6 +15,7 @@ media/.ui-action-frames/
 media/.video-capture/
 media/.narration-silence.log
 media/__pycache__/
+media/**/__pycache__/
 media/review-*
 media/*_draft.mp4
 media/mergewitness_demo_live.mp4
