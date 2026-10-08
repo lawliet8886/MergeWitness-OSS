@@ -1,15 +1,17 @@
-# Tradução para legendas e transcrição — rascunho
+# Narração do produto — português
 
-**Não é um vídeo final.** A resposta encaminhada pelo usuário, sua verificação local e a repetição em uma análise nova estão registradas. A interface e a identidade do modelo no provedor não foram capturadas de forma independente. A versão principal terá voz em inglês e legendas PT/EN; a narração final continua pendente.
+Knox stock voice, generated through the existing Google Vids account on 2026-10-08. The exported narration is 101.888 seconds. The 120-second film inserts section pauses without respeeding speech. PT/EN captions are aligned to the actual recorded speech with local ASR; proper-name recognition is fallible. Owner listening approval remains pending.
 
-| Tempo | Tradução |
-| --- | --- |
-| 00:00–00:12 | Duas mudanças podem passar nos testes e falhar quando se encontram. O problema pode estar escondido na ordem das operações. |
-| 00:12–00:28 | O MergeWitness ajuda a repetir essa sequência entre revisões Git e inspecionar o que uma correção candidata preserva. Seu núcleo MIT roda localmente em um repositório Node confiável. |
-| 00:28–00:48 | Aqui, uma mudança acrescenta preços por cliente. Outra acrescenta um cache. Juntas, o cache devolve ao próximo cliente o preço do primeiro: noventa em vez de cem. |
-| 00:48–01:15 | Antes de pedir uma correção, congelamos a sequência e declaramos o que cada mudança deve preservar. Neste exemplo, o usuário obteve uma proposta pelo Claude na web e a encaminhou. Revisamos o código, e um controlador local aplicou a proposta sem alterações. |
-| 01:15–01:41 | Remover o cache esconde o erro de preço, mas perde uma funcionalidade necessária. Esse controle foi rejeitado. A proposta registrada passa na mesma sequência congelada, nos testes existentes e nos dois requisitos. Ela também passa em uma análise nova, sem outra geração. |
-| 01:41–01:52 | A aprovação cobre esses checks e suas entradas declaradas. Ela não comprova todos os comportamentos. A equipe continua responsável pelo código e pela decisão de merge. |
-| 01:52–02:00 | Experimente o exemplo reproduzível ou ajude a testar um caso Node real no nosso primeiro piloto de integração. |
+Duas mudanças podem passar nos testes e falhar quando se encontram. O problema pode estar na ordem das operações, mesmo após um merge Git sem conflito.
 
-O piloto gratuito permanece limitado a um repositório confiável, um caso e até duas sessões. Não há usuários, receita, patrocínio ou aceite em programa comprovados. O contato é `gabriel@mergewitness.com.br`; a entrega de e-mail não foi testada.
+O MergeWitness repete a sequência entre revisões Git, compara observações e verifica o que uma correção preserva. O núcleo open source MIT roda localmente em um repositório Node confiável. As evidências ficam em um relatório offline.
+
+Neste exemplo sintético, uma mudança acrescenta preços por tenant. Outra acrescenta um cache. Alpha custa noventa. Beta deveria receber o preço global de cem. Porém, o cache combinado usa apenas o produto como chave. Depois de Alpha, Beta recebe noventa. Os testes comuns passam. A sequência congelada expõe a interação.
+
+Antes de pedir uma correção, congelamos a sequência e declaramos o que cada mudança deve preservar. Nesta demonstração, o usuário obteve uma proposta no Claude pela web e a encaminhou. Revisamos o código, e um controlador local aplicou a proposta sem alterações. A nova chave combina tenant e produto.
+
+Remover o cache pode esconder o erro de preço, mas perde uma funcionalidade necessária. Esse controle foi rejeitado. A proposta registrada passa na mesma sequência, nos testes existentes e nos dois requisitos. Consultas repetidas continuam usando o cache. O mesmo código também passa em uma análise nova, sem outra geração.
+
+A aprovação cobre esses checks e suas entradas declaradas. Ela não comprova todos os comportamentos. Sua equipe continua responsável pelo código e pela decisão de merge.
+
+Comece pelo exemplo reproduzível. Ou ajude a testar um caso Node real no nosso primeiro piloto gratuito de integração. Repita a sequência. Leia as evidências. Preserve o que importa.

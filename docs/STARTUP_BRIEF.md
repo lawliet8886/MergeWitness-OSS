@@ -2,7 +2,7 @@
 
 Preparado em 08/10/2026. Este documento descreve uma iniciativa de software de fundador solo, com núcleo MIT e pilotos de integração. Ainda não há validação comercial externa. A data de início da atividade empresarial, a constituição formal e o histórico de financiamento não foram verificados.
 
-Uma [apresentação curta em inglês](STARTUP_ONE_PAGE_EN.md) foi preparada para revisão. O novo vídeo tem [roteiro bilíngue](VIDEO_STORYBOARD_0.3.0.md) e prévia visual sem narração final. Uma proposta encaminhada do [Claude gratuito pela web passou na verificação local e em uma análise nova](CLAUDE_WEB_WORKFLOW.md), sem criar assinatura ou cobrança de API. A origem no provedor é informada pelo usuário, sem captura independente de interface/modelo. A integração de modelo por Claude Code/MCP permanece separada e não comprovada.
+Uma [apresentação curta em inglês](STARTUP_ONE_PAGE_EN.md) foi preparada para revisão. O novo filme de dois minutos tem voz Knox, master/web, corte de 30 segundos e legendas/transcrições PT/EN; a [checagem técnica e visual da cópia privada foi registrada](evidence/NARRATED_FILM_SITE_0.3.0.md). A avaliação humana da voz permanece pendente. Uma proposta encaminhada do [Claude gratuito pela web passou na verificação local e em uma análise nova](CLAUDE_WEB_WORKFLOW.md), sem criar assinatura ou cobrança de API. A origem no provedor é informada pelo usuário, sem captura independente de interface/modelo. A integração de modelo por Claude Code/MCP permanece separada e não comprovada.
 
 ## O problema que queremos testar
 
