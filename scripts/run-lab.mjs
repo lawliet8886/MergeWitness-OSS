@@ -1,20 +1,24 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { basename, dirname, join, resolve } from 'node:path';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { isDeepStrictEqual } from 'node:util';
 import { evaluate, prepare, verifyRepair } from '../src/core/mergeWitness.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const reports = join(root, 'reports');
 const bobProbes = join(root, 'src', 'bob-probes');
 const args = process.argv.slice(2);
 const valueAfter = (flag) => args.includes(flag) ? args[args.indexOf(flag) + 1] : undefined;
 const statePath = valueAfter('--state');
 const candidatePath = valueAfter('--candidate');
 const retainedArtifactPath = valueAfter('--retained-artifact');
+const priorState = statePath ? JSON.parse(readFileSync(resolve(statePath), 'utf8')) : null;
+const reportBase = resolve(valueAfter('--out') ?? join(root, 'artifacts', 'labs'));
+mkdirSync(reportBase, { recursive: true });
+if (priorState && !priorState.publicEvaluationReportPath) throw new Error('Prepare a new v2 laboratory analysis with its own public evaluation report.');
+const reports = priorState ? dirname(priorState.publicEvaluationReportPath) : mkdtempSync(join(reportBase, 'run-'));
 
 function sha256(path) {
   return createHash('sha256').update(readFileSync(path)).digest('hex');
@@ -22,7 +26,8 @@ function sha256(path) {
 
 function writeReport(name, payload) {
   mkdirSync(reports, { recursive: true });
-  const path = join(reports, name);
+  const outputDirectory = payload.stage === 'repair-verification' ? mkdtempSync(join(reports, 'repair-')) : reports;
+  const path = join(outputDirectory, name);
   writeFileSync(path, `${JSON.stringify(payload, null, 2)}\n`);
   return path;
 }
@@ -41,7 +46,7 @@ function readMatchingEvaluationReport(state, path) {
   const bytes = readFileSync(path);
   const report = JSON.parse(bytes.toString('utf8'));
   const expected = {
-    version: 1,
+    version: 2,
     scenario: 'tenant-cache',
     stage: 'evaluation',
     refs: state.refs,
@@ -80,11 +85,13 @@ if (candidatePath) {
   const retainedMatchesCandidate = retainedArtifact ? sha256(retainedArtifact) === sha256(candidateCatalog) : false;
   const passed = verified.passed && retainedMatchesCandidate;
   const report = {
-    version: 1,
+    version: 2,
     scenario: 'tenant-cache',
     stage: 'repair-verification',
     passed,
     coreVerificationPassed: verified.passed,
+    retentionVerified: verified.retentionVerified,
+    retentionCoverage: verified.retentionCoverage,
     normalTestsExitCode: verified.normalTests.exitCode,
     probe: { status: verified.probe.kind, consistent: verified.probe.consistent },
     featureChecks: verified.featureChecks.map((check) => ({ name: basename(check.source), sha256: check.hash, status: check.result.kind, consistent: check.result.consistent })),
@@ -102,7 +109,7 @@ if (candidatePath) {
     frozenProbeHash: verified.frozenProbeHash,
   };
   const path = writeReport('tenant-cache-repair.public.json', report);
-  process.stdout.write(`${JSON.stringify({ report: 'reports/tenant-cache-repair.public.json', passed, statePath, candidatePath }, null, 2)}\n`);
+  process.stdout.write(`${JSON.stringify({ report: relative(root, path), passed, statePath, candidatePath }, null, 2)}\n`);
   process.exitCode = passed ? 0 : 1;
 } else {
   const generated = spawnSync('node', ['fixtures/create-fixtures.mjs'], { cwd: root, encoding: 'utf8', shell: false });
@@ -118,14 +125,14 @@ if (candidatePath) {
     analysisId: prepared.analysisId,
     statePath: prepared.statePath,
     probePath: join(root, 'src', 'bob-probes', 'tenant-cache.shared-fresh.probe.mjs'),
-    featureCheckPaths: [
-      join(root, 'src', 'bob-probes', 'tenant-pricing.check.mjs'),
-      join(root, 'src', 'bob-probes', 'sku-cache.proxy.check.mjs'),
+    requirements: [
+      { id: 'tenant-pricing', origin: 'branchA', checkPath: join(root, 'src', 'bob-probes', 'tenant-pricing.check.mjs'), dependencies: [] },
+      { id: 'sku-cache', origin: 'branchB', checkPath: join(root, 'src', 'bob-probes', 'sku-cache.proxy.check.mjs'), dependencies: [] },
     ],
     repetitions: 3,
   });
   const report = {
-    version: 1,
+    version: 2,
     scenario: 'tenant-cache',
     stage: 'evaluation',
     source: { fixture: 'synthetic tenant-cache-history', refs: prepared.refs, commits: prepared.commits, trees: evaluated.report.trees },
@@ -147,7 +154,10 @@ if (candidatePath) {
     featureChecks: evaluated.probeManifest ? evaluated.report.probe.featureChecks.map((entry) => ({ name: basename(entry.frozen), sha256: entry.hash })) : [],
     matrix: publicMatrix(evaluated.matrix),
   };
-  writeReport('tenant-cache-evaluation.public.json', report);
-  process.stdout.write(`${JSON.stringify({ report: 'reports/tenant-cache-evaluation.public.json', classification: evaluated.classification, statePath: prepared.statePath, candidatePath: prepared.paths.merged }, null, 2)}\n`);
+  const reportPath = writeReport('tenant-cache-evaluation.public.json', report);
+  const state = JSON.parse(readFileSync(prepared.statePath, 'utf8'));
+  state.publicEvaluationReportPath = reportPath;
+  writeFileSync(prepared.statePath, JSON.stringify(state, null, 2) + '\n');
+  process.stdout.write(`${JSON.stringify({ report: relative(root, reportPath), classification: evaluated.classification, statePath: prepared.statePath, candidatePath: prepared.paths.merged }, null, 2)}\n`);
   process.exitCode = evaluated.classification === 'interaction_witness' ? 0 : 1;
 }

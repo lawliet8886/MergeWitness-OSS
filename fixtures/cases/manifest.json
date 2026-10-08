@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "frozenAt": "2026-10-08T02:21:06.792Z",
+  "scope": "Ten small labeled cases, not a general efficacy benchmark. Public cases replay unchanged published library modules inside a newly authored minimal Git harness, not upstream Git merges.",
+  "cases": [
+    {
+      "id": "tenant-cache-witness",
+      "kind": "tenant",
+      "label": "interaction_witness",
+      "provenance": "synthetic",
+      "expectedRepair": true
+    },
+    {
+      "id": "priority-cursor-witness",
+      "kind": "priority",
+      "label": "interaction_witness",
+      "provenance": "synthetic",
+      "expectedRepair": null
+    },
+    {
+      "id": "tenant-valid-repair",
+      "kind": "tenant",
+      "label": "interaction_witness",
+      "provenance": "synthetic",
+      "expectedRepair": true
+    },
+    {
+      "id": "tenant-remove-cache",
+      "kind": "tenant",
+      "label": "interaction_witness",
+      "provenance": "synthetic",
+      "expectedRepair": false,
+      "mutation": "remove-cache"
+    },
+    {
+      "id": "tenant-remove-pricing",
+      "kind": "tenant",
+      "label": "interaction_witness",
+      "provenance": "synthetic",
+      "expectedRepair": false,
+      "mutation": "remove-pricing"
+    },
+    {
+      "id": "compatible-independent",
+      "kind": "control",
+      "label": "no_witness_found",
+      "provenance": "synthetic",
+      "variant": "independent"
+    },
+    {
+      "id": "compatible-refactor",
+      "kind": "control",
+      "label": "no_witness_found",
+      "provenance": "synthetic",
+      "variant": "refactor"
+    },
+    {
+      "id": "unobservable-output",
+      "kind": "control",
+      "label": "inconclusive",
+      "provenance": "synthetic",
+      "variant": "unobservable"
+    },
+    {
+      "id": "public-dataloader-cached-batching",
+      "kind": "public",
+      "label": "preexisting_violation",
+      "provenance": "unchanged published module in minimal harness",
+      "expectedRepair": true,
+      "heldOut": true,
+      "incident": "https://github.com/graphql/dataloader/issues/97",
+      "fix": "https://github.com/graphql/dataloader/pull/222"
+    },
+    {
+      "id": "public-dataloader-primed-error",
+      "kind": "public",
+      "label": "preexisting_violation",
+      "provenance": "unchanged published module in minimal harness",
+      "expectedRepair": true,
+      "heldOut": false,
+      "incident": "https://github.com/graphql/dataloader/pull/223",
+      "fix": "https://github.com/graphql/dataloader/pull/222",
+      "relatedIncident": "https://github.com/graphql/dataloader/issues/224",
+      "holdoutNote": "Observation corrected after published-module check; no blind holdout claim."
+    }
+  ]
+}

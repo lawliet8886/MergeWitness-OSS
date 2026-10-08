@@ -33,6 +33,11 @@ test-output.tmp
 *.tsbuildinfo
 web/dist/
 *.log
+!docs/evidence/*.log
+artifacts/
+site-preview/
+.superpowers/
+*.tgz
 .env
 .env.*
 !.env.example

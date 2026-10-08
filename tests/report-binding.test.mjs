@@ -32,22 +32,26 @@ test('repair report stays bound to its original evaluation after another run', {
 
     const original = rememberAnalysis(success(run(process.execPath, ['scripts/run-lab.mjs'])));
     assert.equal(original.classification, 'interaction_witness');
-    const evaluationPath = join(copiedRepo, 'reports/tenant-cache-evaluation.public.json');
+    const evaluationPath = resolve(copiedRepo, original.report);
     const originalEvaluation = readFileSync(evaluationPath);
 
-    // A later experiment replaces the public report while the first repair is pending.
+    // Later experiments own separate reports; an explicitly substituted report
+    // must still be rejected rather than silently verified against other checks.
     writeFileSync(join(copiedRepo, 'src/bob-probes/tenant-cache.shared-fresh.probe.mjs'), "console.log(JSON.stringify({status:'pass',evidence:{revision:'second-probe'}}));\n");
     const secondRun = run(process.execPath, ['scripts/run-lab.mjs']);
     assert.equal(secondRun.status, 1, secondRun.stderr);
     const second = rememberAnalysis(secondRun);
     assert.equal(second.classification, 'no_witness_found');
+    assert.notEqual(resolve(copiedRepo, second.report), evaluationPath);
+    assert.deepEqual(readFileSync(evaluationPath), originalEvaluation, 'Later evaluation must not overwrite earlier evidence.');
+    copyFileSync(resolve(copiedRepo, second.report), evaluationPath);
 
     const retainedArtifact = join(copiedRepo, 'src/bob-repairs/tenant-cache/catalog.fixed.js');
     copyFileSync(retainedArtifact, join(original.candidatePath, 'src/catalog.js'));
     success(run('git', ['add', '--', 'src/catalog.js'], original.candidatePath));
     success(run('git', ['-c', 'user.name=MergeWitness Test', '-c', 'user.email=test@example.invalid', 'commit', '-m', 'Apply retained repair'], original.candidatePath));
     const repairArgs = ['scripts/run-lab.mjs', '--state', original.statePath, '--candidate', original.candidatePath, '--retained-artifact', retainedArtifact];
-    const repairPath = join(copiedRepo, 'reports/tenant-cache-repair.public.json');
+    const repairPath = join(dirname(evaluationPath), 'tenant-cache-repair.public.json');
     const priorRepair = '{"preserve":"previous repair artifact"}\n';
     writeFileSync(repairPath, priorRepair);
 
@@ -59,7 +63,12 @@ test('repair report stays bound to its original evaluation after another run', {
     writeFileSync(evaluationPath, originalEvaluation);
     const accepted = success(run(process.execPath, repairArgs));
     assert.equal(JSON.parse(accepted.stdout).passed, true);
-    const report = JSON.parse(readFileSync(repairPath, 'utf8'));
+    const acceptedPath = resolve(copiedRepo, JSON.parse(accepted.stdout).report);
+    const acceptedBytes = readFileSync(acceptedPath);
+    const repeated = success(run(process.execPath, repairArgs));
+    assert.notEqual(resolve(copiedRepo, JSON.parse(repeated.stdout).report), acceptedPath);
+    assert.deepEqual(readFileSync(acceptedPath), acceptedBytes, 'Repeated repair must preserve earlier report bytes.');
+    const report = JSON.parse(acceptedBytes);
     const evaluation = JSON.parse(originalEvaluation);
     assert.equal(report.passed, true);
     assert.equal(report.evaluationPublicReportSha256, createHash('sha256').update(originalEvaluation).digest('hex'));

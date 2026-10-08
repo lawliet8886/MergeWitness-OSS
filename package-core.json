@@ -1,6 +1,8 @@
 {
   "name": "mergewitness-core",
+  "version": "0.2.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "test:core": "node --test tests/core.test.mjs",

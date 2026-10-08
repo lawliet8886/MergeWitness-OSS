@@ -1,0 +1,22 @@
+✔ unsupported test runners are rejected by the API, CLI, and MCP before repository access (496.2303ms)
+✔ prepare uses a disposable clean merge and preserves passing ordinary tests (22424.5911ms)
+✔ browser-safe trace adapter executes caller supplied fixture behavior (7.4732ms)
+✔ generated browser snapshots have parity with the actual Git snapshot modules (25762.5194ms)
+✔ evaluate requires a structured, consistent probe result and records immutable evidence (34961.5466ms)
+✔ evaluation rejects differing structured evidence across repetitions (40889.3848ms)
+✔ repair verification rejects a dirty candidate before running test commands (40863.4845ms)
+✔ repair verification protects root tests, renamed tests, and accented test paths (50651.0523ms)
+✔ evaluation rejects a snapshot changed after preparation, even after the change is committed (29505.2716ms)
+✔ re-evaluation isolates dependencies and preserves earlier evidence when an attempt fails (102686.4927ms)
+✔ repair verification detects frozen dependency changes before and after execution (40982.2596ms)
+✔ repair verification rejects candidate and frozen-check changes made by a passing check (64035.0747ms)
+✔ CLI writes a failed verification report and exits nonzero (46079.388ms)
+✔ priority ordering plus an id cursor cleanly merges while losing a traversed item (26187.5691ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 525804.3118

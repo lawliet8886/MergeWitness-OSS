@@ -2,8 +2,8 @@
 // Independently measure Bob's second synthetic interaction probe.
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { evaluate, prepare } from '../src/core/mergeWitness.mjs';
 
@@ -29,7 +29,7 @@ function runCheck(path, file) {
 }
 
 const prepared = prepare({ repoPath: fixture, baseRef: 'base', branchARef: 'priority-order', branchBRef: 'id-cursor', testCommand: ['node', '--test'] });
-const evaluated = evaluate({ analysisId: prepared.analysisId, statePath: prepared.statePath, probePath: probe, featureCheckPaths: checks, repetitions: 3 });
+const evaluated = evaluate({ analysisId: prepared.analysisId, statePath: prepared.statePath, probePath: probe, requirements: checks.map((checkPath,index)=>({id:index===0?'priority-order':'id-cursor',origin:index===0?'branchA':'branchB',checkPath,dependencies:[]})), repetitions: 3 });
 const matrix = Object.fromEntries(Object.entries(evaluated.matrix).map(([name, entry]) => [name, {
   status: entry.kind,
   consistent: entry.consistent,
@@ -40,7 +40,7 @@ const passed = evaluated.classification === 'interaction_witness'
   && Object.values(prepared.normalTests).every((entry) => entry.exitCode === 0)
   && featureChecks.every((entry) => entry.exitCode === 0 && entry.status === 'pass');
 const report = {
-  version: 1,
+  version: 2,
   scenario: 'priority-cursor',
   stage: 'Bob-original-probe-evaluation',
   passed,
@@ -57,8 +57,8 @@ const report = {
   featureChecks,
   limitation: 'One synthetic fixture and one explicitly authored invariant; no general merge-safety guarantee or repair verification for this second scenario.',
 };
-mkdirSync(join(root, 'reports'), { recursive: true });
-const output = join(root, 'reports', 'priority-cursor-evaluation.public.json');
+mkdirSync(join(root, 'artifacts/labs'), { recursive: true });
+const output = join(mkdtempSync(join(root, 'artifacts/labs/priority-')), 'priority-cursor-evaluation.public.json');
 writeFileSync(output, `${JSON.stringify(report, null, 2)}\n`);
-process.stdout.write(`${JSON.stringify({ report: 'reports/priority-cursor-evaluation.public.json', passed, classification: report.classification, matrix: Object.fromEntries(Object.entries(matrix).map(([k, v]) => [k, v.status])) }, null, 2)}\n`);
+process.stdout.write(`${JSON.stringify({ report: relative(root,output), passed, classification: report.classification, matrix: Object.fromEntries(Object.entries(matrix).map(([k, v]) => [k, v.status])) }, null, 2)}\n`);
 process.exitCode = passed ? 0 : 1;

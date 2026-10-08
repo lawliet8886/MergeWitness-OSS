@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Measure Bob's untouched tenant-cache probe separately from the audit probe.
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { evaluate, prepare } from '../src/core/mergeWitness.mjs';
 
@@ -46,7 +46,7 @@ const passed = prepared.merge.clean
   && matrix.merged.evidence.length === 3
   && matrix.merged.evidence.every((entry) => entry?.expected === 100 && entry?.observed === 90);
 const report = {
-  version: 1,
+  version: 2,
   scenario: 'tenant-cache',
   stage: 'Bob-original-probe-evaluation',
   passed,
@@ -70,8 +70,8 @@ const report = {
   matrix,
   limitation: 'This is a separate measurement of Bob\'s original fixed-price probe. The final repair verification uses an independently strengthened derivative and independent cache check.',
 };
-mkdirSync(join(root, 'reports'), { recursive: true });
-const output = join(root, 'reports', 'tenant-cache-bob-original.public.json');
+mkdirSync(join(root, 'artifacts/labs'), { recursive: true });
+const output = join(mkdtempSync(join(root, 'artifacts/labs/original-')), 'tenant-cache-bob-original.public.json');
 writeFileSync(output, `${JSON.stringify(report, null, 2)}\n`);
-process.stdout.write(`${JSON.stringify({ report: 'reports/tenant-cache-bob-original.public.json', passed, classification: report.classification, matrix: Object.fromEntries(Object.entries(matrix).map(([name, entry]) => [name, entry.status])) }, null, 2)}\n`);
+process.stdout.write(`${JSON.stringify({ report: relative(root,output), passed, classification: report.classification, matrix: Object.fromEntries(Object.entries(matrix).map(([name, entry]) => [name, entry.status])) }, null, 2)}\n`);
 process.exitCode = passed ? 0 : 1;

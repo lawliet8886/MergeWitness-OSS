@@ -1,27 +1,36 @@
 #!/usr/bin/env node
 import { readFileSync, writeFileSync } from 'node:fs';
-import { prepare, evaluate, verifyRepair } from '../core/mergeWitness.mjs';
+import { dispose, evaluate, prepare, verifyRepair } from '../core/mergeWitness.mjs';
+import { runTenantCacheDemo } from '../demo/tenantCache.mjs';
 
-function usage() {
-  console.error('Usage: node src/cli/mergewitness.mjs <prepare|evaluate|verify-repair|workflow> <request.json> [response.json]');
-  process.exitCode = 2;
-}
-
-const [operation, requestFile, responseFile] = process.argv.slice(2);
-if (!operation || !requestFile) usage();
-else {
+const version = '0.2.0';
+const handlers = new Map([['prepare', prepare], ['evaluate', evaluate], ['verify-repair', verifyRepair], ['dispose', dispose]]);
+const usage = () => 'Usage:\n  mergewitness <prepare|evaluate|verify-repair|dispose> <request.json> [response.json]\n  mergewitness workflow <request.json> [response.json]\n  mergewitness demo tenant-cache --out <directory>\n  mergewitness --help | --version\n';
+const args = process.argv.slice(2);
+if (args[0] === '--help' || args[0] === '-h') process.stdout.write(usage());
+else if (args[0] === '--version' || args[0] === '-v') process.stdout.write(`${version}\n`);
+else if (args[0] === 'demo') {
   try {
+    if (args[1] !== 'tenant-cache' || args[2] !== '--out' || !args[3] || args.length !== 4) throw new Error('Usage: mergewitness demo tenant-cache --out <directory>');
+    const result = runTenantCacheDemo({ out: args[3] });
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+    if (!result.passed) process.exitCode = 1;
+  } catch (error) { process.stderr.write(`${error.message}\n`); process.exitCode = 1; }
+} else {
+  const [operation, requestFile, responseFile] = args;
+  try {
+    if (!operation || !requestFile) throw new Error(usage().trim());
     const request = JSON.parse(readFileSync(requestFile, 'utf8'));
-    const handlers = { prepare, evaluate, 'verify-repair': verifyRepair };
     let result;
     if (operation === 'workflow') {
       const prepared = prepare(request.prepare);
-      const evaluated = evaluate({ analysisId: prepared.analysisId, ...request.evaluate });
-      const verified = request.verifyRepair ? verifyRepair({ analysisId: prepared.analysisId, ...request.verifyRepair }) : undefined;
+      const evaluated = evaluate({ analysisId: prepared.analysisId, statePath: prepared.statePath, ...request.evaluate });
+      const verified = request.verifyRepair ? verifyRepair({ analysisId: prepared.analysisId, statePath: prepared.statePath, ...request.verifyRepair }) : undefined;
       result = { prepared, evaluated, ...(verified ? { verified } : {}) };
     } else {
-      if (!handlers[operation]) throw new Error(`Unknown operation: ${operation}`);
-      result = handlers[operation](request);
+      const handler = handlers.get(operation);
+      if (!handler) throw new Error(`Unknown operation: ${operation}`);
+      result = handler(request);
     }
     const text = `${JSON.stringify(result, null, 2)}\n`;
     if (responseFile) writeFileSync(responseFile, text);
