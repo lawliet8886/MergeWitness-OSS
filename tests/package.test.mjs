@@ -37,7 +37,7 @@ function stagePackSource(temp) {
 
 test('package exposes the private Node 22 core and both executable entrypoints', () => {
   assert.equal(manifest.name, 'mergewitness-core');
-  assert.equal(manifest.version, '0.2.0');
+  assert.equal(manifest.version, '0.2.1');
   assert.equal(manifest.private, true);
   assert.equal(manifest.type, 'module');
   assert.equal(manifest.license, 'MIT');

@@ -1,0 +1,106 @@
+{
+  "schema": "merge-witness-upstream-holdout-v1",
+  "id": "fastq-80-active-pause-resume",
+  "writtenAtUtc": "2026-10-08T06:28:13.6162625Z",
+  "upstreamReviewed": true,
+  "mergeWitnessRunBeforeWrite": false,
+  "blindness": "Evidence-derived precommitted oracle; upstream issue and fix were reviewed; not a fully blind evaluation.",
+  "primarySources": [
+    "https://github.com/mcollina/fastq/issues/80",
+    "https://github.com/mcollina/fastq/pull/81",
+    "https://github.com/mcollina/fastq/blob/b8d99205b36f9a0e8063ab9c84f6a92757d59ced/README.md",
+    "https://registry.npmjs.org/fastq/1.16.0",
+    "https://registry.npmjs.org/fastq/1.17.0"
+  ],
+  "versions": {
+    "old": "1.16.0",
+    "fixed": "1.17.0",
+    "dependency": "reusify@1.0.4"
+  },
+  "sequence": [
+    "create queue concurrency=1 with a worker holding callbacks",
+    "push A",
+    "push B",
+    "pause",
+    "resume",
+    "observe before releasing any callback"
+  ],
+  "checks": {
+    "active_pause_resume_regression": {
+      "intended": {
+        "started": [
+          "A"
+        ],
+        "running": 1,
+        "queued": [
+          "B"
+        ],
+        "paused": false,
+        "idle": false
+      },
+      "expectedOld": {
+        "started": [
+          "A",
+          "B"
+        ],
+        "running": 2,
+        "queued": [],
+        "paused": false,
+        "idle": false
+      },
+      "expectedOldPass": false,
+      "expectedFixedPass": true,
+      "sourceBasis": "Issue 80 scenario 1 explicitly says resume starts another worker despite an active worker. PR 81 gates resume by queueHead and _running < _concurrency."
+    },
+    "retained_fifo_serial_completion": {
+      "intended": {
+        "started": [
+          "A",
+          "B",
+          "C"
+        ],
+        "results": [
+          10,
+          20,
+          30
+        ],
+        "maxRunning": 1,
+        "running": 0,
+        "queued": [],
+        "idle": true,
+        "drains": 1
+      },
+      "expectedOldPass": true,
+      "expectedFixedPass": true,
+      "sourceBasis": "Published README queue.push adds to the end; queue.drain runs after the last item is processed; fixed and old implementations preserve normal FIFO completion."
+    },
+    "retained_callback_success_error": {
+      "intended": {
+        "workerContexts": [
+          true,
+          true
+        ],
+        "callbacks": [
+          {
+            "value": "success",
+            "error": null,
+            "result": 42,
+            "contextMatches": true
+          },
+          {
+            "value": "failure",
+            "error": "planned-failure",
+            "result": null,
+            "contextMatches": true
+          }
+        ],
+        "running": 0,
+        "queued": [],
+        "idle": true
+      },
+      "expectedOldPass": true,
+      "expectedFixedPass": true,
+      "sourceBasis": "Published README defines optional worker context and done(err, result). Both Task.worked implementations pass error/result and configured context to task callbacks."
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "admittedAt": "2026-10-08T06:36:38.464Z",
+  "mergeWitnessRunBeforeAdmission": false,
+  "sources": [
+    {
+      "path": "fixtures/cases/vendor/lru-cache-7.4.0/index.cjs",
+      "sha256": "c32f69dd3c56668e496ad06db8c9ff5d71b09bb8991e299358f4c2139ba4c83b",
+      "package": "lru-cache@7.4.0",
+      "license": "ISC",
+      "npmGitHead": "d511442f93820ed65d419bd7a2542a93d1faedaf",
+      "tarball": "https://registry.npmjs.org/lru-cache/-/lru-cache-7.4.0.tgz",
+      "archiveSha256": "89ec64128de5b416f402af6f204875f961b1937f1f13d317c07d3d6795006ab4"
+    },
+    {
+      "path": "fixtures/cases/vendor/lru-cache-7.4.0/LICENSE",
+      "sha256": "1f83bda57bed3e7f177a32a0901e0b57a66b0241f955276710827b6b64fdbfe7",
+      "package": "lru-cache@7.4.0",
+      "license": "ISC",
+      "npmGitHead": "d511442f93820ed65d419bd7a2542a93d1faedaf",
+      "tarball": "https://registry.npmjs.org/lru-cache/-/lru-cache-7.4.0.tgz",
+      "archiveSha256": "89ec64128de5b416f402af6f204875f961b1937f1f13d317c07d3d6795006ab4"
+    },
+    {
+      "path": "fixtures/cases/vendor/lru-cache-7.4.0/package.json",
+      "sha256": "f13a8db57ca482b7ef959bc34efd49c8e80dd98565df7e424d6e99ce27555432",
+      "package": "lru-cache@7.4.0",
+      "license": "ISC",
+      "npmGitHead": "d511442f93820ed65d419bd7a2542a93d1faedaf",
+      "tarball": "https://registry.npmjs.org/lru-cache/-/lru-cache-7.4.0.tgz",
+      "archiveSha256": "89ec64128de5b416f402af6f204875f961b1937f1f13d317c07d3d6795006ab4"
+    },
+    {
+      "path": "fixtures/cases/vendor/lru-cache-7.4.1/index.cjs",
+      "sha256": "c96da2def3d47e6c10ace6c0f69e13c3f28f473e504525af3c38778c6816c63d",
+      "package": "lru-cache@7.4.1",
+      "license": "ISC",
+      "npmGitHead": "2be1d2436218360dbf4c673088323b88840bcd24",
+      "tarball": "https://registry.npmjs.org/lru-cache/-/lru-cache-7.4.1.tgz",
+      "archiveSha256": "1a211283b114bcea80ed698cedc87bfea2180d6ed1ea4568fc3f9c71028c092c"
+    },
+    {
+      "path": "fixtures/cases/vendor/lru-cache-7.4.1/LICENSE",
+      "sha256": "1f83bda57bed3e7f177a32a0901e0b57a66b0241f955276710827b6b64fdbfe7",
+      "package": "lru-cache@7.4.1",
+      "license": "ISC",
+      "npmGitHead": "2be1d2436218360dbf4c673088323b88840bcd24",
+      "tarball": "https://registry.npmjs.org/lru-cache/-/lru-cache-7.4.1.tgz",
+      "archiveSha256": "1a211283b114bcea80ed698cedc87bfea2180d6ed1ea4568fc3f9c71028c092c"
+    },
+    {
+      "path": "fixtures/cases/vendor/lru-cache-7.4.1/package.json",
+      "sha256": "7642ecdba5d059d07ffd683518bc1061cb36c3f34a7c9e1e0dbe15450288f9b4",
+      "package": "lru-cache@7.4.1",
+      "license": "ISC",
+      "npmGitHead": "2be1d2436218360dbf4c673088323b88840bcd24",
+      "tarball": "https://registry.npmjs.org/lru-cache/-/lru-cache-7.4.1.tgz",
+      "archiveSha256": "1a211283b114bcea80ed698cedc87bfea2180d6ed1ea4568fc3f9c71028c092c"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.16.0/index.cjs",
+      "sha256": "c26771eafa97d454e8a4516513c7f59314a1138bca03a030af144e5e69765a9d",
+      "package": "fastq@1.16.0",
+      "license": "ISC",
+      "npmGitHead": "b8d99205b36f9a0e8063ab9c84f6a92757d59ced",
+      "tarball": "https://registry.npmjs.org/fastq/-/fastq-1.16.0.tgz",
+      "archiveSha256": "eb0b8166c79087697c39e78e407277a3144209f3f2b94a1cff8acab0e650af62"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.16.0/LICENSE",
+      "sha256": "c3367f6d01a79d368fc4fbb41b3615fcd92f243d6597ab96742f6f976f9325af",
+      "package": "fastq@1.16.0",
+      "license": "ISC",
+      "npmGitHead": "b8d99205b36f9a0e8063ab9c84f6a92757d59ced",
+      "tarball": "https://registry.npmjs.org/fastq/-/fastq-1.16.0.tgz",
+      "archiveSha256": "eb0b8166c79087697c39e78e407277a3144209f3f2b94a1cff8acab0e650af62"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.16.0/package.json",
+      "sha256": "aa2d56a5f753ba641bb37d7dcb1bda4f78caf67c115199f46665739ba2004452",
+      "package": "fastq@1.16.0",
+      "license": "ISC",
+      "npmGitHead": "b8d99205b36f9a0e8063ab9c84f6a92757d59ced",
+      "tarball": "https://registry.npmjs.org/fastq/-/fastq-1.16.0.tgz",
+      "archiveSha256": "eb0b8166c79087697c39e78e407277a3144209f3f2b94a1cff8acab0e650af62"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.17.0/index.cjs",
+      "sha256": "41ec9df7123c13ec8d96fc37912b45ffe584fbb024e0b7c1d9b24ac69bd47bd3",
+      "package": "fastq@1.17.0",
+      "license": "ISC",
+      "npmGitHead": "22d8dc1e66a0211ed1e17a1bc183bdd422e74362",
+      "tarball": "https://registry.npmjs.org/fastq/-/fastq-1.17.0.tgz",
+      "archiveSha256": "e74a47726682780821c41a109f8b61bd013d4c4d52bb02bc8d6ff8f9e4294a29"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.17.0/LICENSE",
+      "sha256": "c3367f6d01a79d368fc4fbb41b3615fcd92f243d6597ab96742f6f976f9325af",
+      "package": "fastq@1.17.0",
+      "license": "ISC",
+      "npmGitHead": "22d8dc1e66a0211ed1e17a1bc183bdd422e74362",
+      "tarball": "https://registry.npmjs.org/fastq/-/fastq-1.17.0.tgz",
+      "archiveSha256": "e74a47726682780821c41a109f8b61bd013d4c4d52bb02bc8d6ff8f9e4294a29"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.17.0/package.json",
+      "sha256": "99eff3e7cd8cbaf5826ebdef307326161ce79d9a45207d5017acb749911548c0",
+      "package": "fastq@1.17.0",
+      "license": "ISC",
+      "npmGitHead": "22d8dc1e66a0211ed1e17a1bc183bdd422e74362",
+      "tarball": "https://registry.npmjs.org/fastq/-/fastq-1.17.0.tgz",
+      "archiveSha256": "e74a47726682780821c41a109f8b61bd013d4c4d52bb02bc8d6ff8f9e4294a29"
+    },
+    {
+      "path": "fixtures/cases/vendor/reusify-1.0.4/reusify.js",
+      "sha256": "00894a3dd7016e3751560569cc791c15c2e0607c35a91bd3398dab675026fcf3",
+      "package": "reusify@1.0.4",
+      "license": "MIT",
+      "npmGitHead": "89420d4369258d0b768aaebfb1843951193d315d",
+      "tarball": "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz",
+      "archiveSha256": "aa500cd517fa2fa7aeabb96a02baf85d9f0d02a29e2a99c77516053304a133c4"
+    },
+    {
+      "path": "fixtures/cases/vendor/reusify-1.0.4/LICENSE",
+      "sha256": "db0054e6418412e4a265236c94d1d8935057c67f367240b01bb2b0b2f9091812",
+      "package": "reusify@1.0.4",
+      "license": "MIT",
+      "npmGitHead": "89420d4369258d0b768aaebfb1843951193d315d",
+      "tarball": "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz",
+      "archiveSha256": "aa500cd517fa2fa7aeabb96a02baf85d9f0d02a29e2a99c77516053304a133c4"
+    },
+    {
+      "path": "fixtures/cases/vendor/reusify-1.0.4/package.json",
+      "sha256": "1b77d300501f4e04fde008f4fc63049d44e5d4211ee5a14750e402efb92de341",
+      "package": "reusify@1.0.4",
+      "license": "MIT",
+      "npmGitHead": "89420d4369258d0b768aaebfb1843951193d315d",
+      "tarball": "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz",
+      "archiveSha256": "aa500cd517fa2fa7aeabb96a02baf85d9f0d02a29e2a99c77516053304a133c4"
+    },
+    {
+      "path": "fixtures/cases/fastq-expected.json",
+      "sha256": "bb7e54d558fe1d5f51bed3bc5ceeaceafea3b232a150dd525fdbad266c54f834",
+      "kind": "authored evidence-derived oracle"
+    },
+    {
+      "path": "fixtures/cases/fastq-observations.cjs",
+      "sha256": "f049cb8dd6686dad8571ff8ccdca8e8b5bb65a48a09af824e4f30f3fb4f53809",
+      "kind": "authored operation observations"
+    }
+  ],
+  "oracles": {
+    "lru": "4e4070c30c246019175e80175fcd14d1fced74e0e14e2d471eed0c3c46e4cb81",
+    "fastq": "bb7e54d558fe1d5f51bed3bc5ceeaceafea3b232a150dd525fdbad266c54f834"
+  },
+  "limit": "Unchanged published modules in a new minimal harness, with evidence-derived checks. No blind benchmark or upstream merge claim."
+}

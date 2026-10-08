@@ -21,3 +21,7 @@
 - Final corpus: all 10 labeled outcomes matched, including two public known-regression replays; not a general efficacy or adoption claim.
 - Final tarball SHA-256: ca98b6571ac3b943bc857ab48fc5441f6dd1ec3311b1fd5a327dd136e0712835. Exact release installed offline and actual bin demo passed in paths with spaces and accents.
 - Ruling: retain the independent branch locally, with no merge into protected upstream, no configured OSS remote, no push or publication. Local Site source remains separately reviewable.
+
+## Independent 0.2.1 local milestone
+
+See docs/OSS_VALIDATION_PLAN_0.2.1.md and docs/evidence/PROGRESS_0.2.1.md for approved scope and rulings. Added two public sequence incidents (12 total), executed a scoped QuietClash comparison, prepared external-validation/application/publication materials, corrected Git byte preservation in public snapshots and the site copied command, and accepted the exact private 0.2.1 tarball. Fresh review corrections and separate validation phases are in docs/evidence/REVIEW_0.2.1.md and VALIDATION_0.2.1.md. Native Linux50/50, focused correction checks and final corpus/packed-install gates passed. IAB rendering and all external outcomes remain pending; no remote/push/deployment/outreach/submission occurred.

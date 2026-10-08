@@ -44,20 +44,33 @@ function syntheticHistories() {
   return generated;
 }
 
-function analyze(repoPath, refs, probePath, requirements, dependencies = [], count = repetitions) {
-  const prepared = prepare({ repoPath, baseRef: refs[0], branchARef: refs[1], branchBRef: refs[2] });
-  analyses.push(prepared);
-  const evaluated = evaluate({ analysisId: prepared.analysisId, probePath, probeDependencies: dependencies, requirements, repetitions: count });
-  return { prepared, evaluated };
+function publishedBytes(directory, name, files) {
+  const records = Object.entries(files).map(([path, bytes]) => ({path,
+    expectedSha256:createHash('sha256').update(bytes).digest('hex'),actualSha256:hash(join(directory,path))}));
+  const changed = records.filter(file => file.actualSha256 !== file.expectedSha256);
+  if(changed.length) throw new Error(`Published source bytes changed in ${name}: ${JSON.stringify(changed)}`);
+  return {name,files:records};
 }
 
-function repaired(context, name, files) {
+function analyze(repoPath, refs, probePath, requirements, dependencies = [], count = repetitions, publishedSources = null) {
+  const prepared = prepare({ repoPath, baseRef: refs[0], branchARef: refs[1], branchBRef: refs[2] });
+  analyses.push(prepared);
+  const sourceIntegrity = publishedSources ? {snapshots:['base','branchA','branchB','merged'].map(name=>publishedBytes(prepared.paths[name],name,publishedSources))} : null;
+  const evaluated = evaluate({ analysisId: prepared.analysisId, probePath, probeDependencies: dependencies, requirements, repetitions: count });
+  if(publishedSources) for(const name of ['base','branchA','branchB','merged']) publishedBytes(prepared.paths[name],name,publishedSources);
+  return { prepared, evaluated, sourceIntegrity };
+}
+
+function repaired(context, name, files, publishedSources = null) {
   const { prepared } = context;
   const candidate = join(dirname(prepared.paths.merged), name);
   git(prepared.paths.merged, 'worktree', 'add', '--detach', candidate, prepared.commits.merged);
   for (const [path, contents] of Object.entries(files)) put(candidate, path, contents);
   commit(candidate, `Corpus candidate ${name}`);
-  return verifyRepair({ analysisId: prepared.analysisId, candidatePath: candidate });
+  if(publishedSources) publishedBytes(candidate,'candidate-before-verification',publishedSources);
+  const verification=verifyRepair({ analysisId: prepared.analysisId, candidatePath: candidate });
+  if(publishedSources) context.sourceIntegrity={...context.sourceIntegrity,candidate:publishedBytes(candidate,'candidate-after-verification',publishedSources),verified:true};
+  return verification;
 }
 
 function tenantContext() {
@@ -103,9 +116,11 @@ function controlContext(entry) {
 }
 
 function publicContext(entry) {
+  if (entry.library) return publicLibraryContext(entry);
   const directory = join(runRoot, entry.id);
   mkdirSync(directory);
   git(directory, 'init', '-b', 'before');
+  put(directory, '.gitattributes', '* -text\n');
   put(directory, 'package.json', '{"type":"module"}\n');
   put(directory, 'src/dataloader.cjs', readFileSync(join(root, 'fixtures/cases/vendor/dataloader-1.4.0/index.cjs')));
   put(directory, 'LICENSE.dataloader', readFileSync(join(root, 'fixtures/cases/vendor/dataloader-1.4.0/LICENSE')));
@@ -121,9 +136,67 @@ function publicContext(entry) {
   const context = analyze(directory, ['before','before','before'], probe, [
     { id:'loads',origin:'branchA',checkPath:loadCheck,dependencies:[helper] },
     { id:'memoization',origin:'branchB',checkPath:memoCheck,dependencies:[helper] },
-  ], [helper]);
-  const verification = repaired(context, 'after', { 'src/dataloader.cjs': readFileSync(join(root, 'fixtures/cases/vendor/dataloader-2.0.0/index.cjs')), 'LICENSE.dataloader': readFileSync(join(root, 'fixtures/cases/vendor/dataloader-2.0.0/LICENSE')) });
+  ], [helper], repetitions, {'src/dataloader.cjs':readFileSync(join(root,'fixtures/cases/vendor/dataloader-1.4.0/index.cjs')),'LICENSE.dataloader':readFileSync(join(root,'fixtures/cases/vendor/dataloader-1.4.0/LICENSE'))});
+  const fixedFiles={ 'src/dataloader.cjs': readFileSync(join(root, 'fixtures/cases/vendor/dataloader-2.0.0/index.cjs')), 'LICENSE.dataloader': readFileSync(join(root, 'fixtures/cases/vendor/dataloader-2.0.0/LICENSE')) };
+  const verification = repaired(context, 'after', fixedFiles, fixedFiles);
   return { context, verification };
+}
+
+function publicLibraryContext(entry) {
+  const directory = join(runRoot, entry.id);
+  mkdirSync(directory);
+  git(directory, 'init', '-b', 'before');
+  put(directory, '.gitattributes', '* -text\n');
+  put(directory, 'package.json', '{"type":"module"}\n');
+  const isLRU = entry.library === 'lru-cache';
+  const oldVersion = isLRU ? '7.4.0' : '1.16.0';
+  const newVersion = isLRU ? '7.4.1' : '1.17.0';
+  const vendor = join(root, 'fixtures/cases/vendor');
+  const bytes = (version, name) => readFileSync(join(vendor, `${entry.library}-${version}`, name));
+  put(directory, 'src/library.cjs', bytes(oldVersion, 'index.cjs'));
+  put(directory, 'LICENSE.library', bytes(oldVersion, 'LICENSE'));
+  const oldFiles={'src/library.cjs':bytes(oldVersion,'index.cjs'),'LICENSE.library':bytes(oldVersion,'LICENSE')};
+  if (!isLRU) {
+    for (const name of ['reusify.js', 'package.json', 'LICENSE']) {
+      const path=`src/node_modules/reusify/${name}`;
+      oldFiles[path]=readFileSync(join(vendor,'reusify-1.0.4',name));
+      put(directory,path,oldFiles[path]);
+    }
+  }
+  const ordinary = isLRU
+    ? "import Library from '../src/library.cjs'; test('ordinary cache set/get',()=>{ const cache=new Library({max:2}); cache.set('key',42); assert.equal(cache.get('key'),42); });"
+    : "import Library from '../src/library.cjs'; test('ordinary queue callback',()=>{ let answer; const queue=Library((value,done)=>done(null,value*2),1); queue.push(21,(error,value)=>{assert.equal(error,null);answer=value;}); assert.equal(answer,42); });";
+  put(directory, 'test/library.test.mjs', "import test from 'node:test'; import assert from 'node:assert/strict'; " + ordinary + '\n');
+  commit(directory, `${entry.library} ${oldVersion} published bytes in a minimal harness`);
+  const checks = join(runRoot, 'checks', entry.id);
+  const helperName = isLRU ? 'observations.mjs' : 'observations.cjs';
+  const helper = put(checks, helperName, readFileSync(join(root, `fixtures/cases/${isLRU ? 'lru-observations.mjs' : 'fastq-observations.cjs'}`)));
+  const oracle = put(checks, 'expected.json', readFileSync(join(root, 'fixtures/cases', entry.oracle)));
+  const common = "import {join} from 'node:path'; import {readFileSync} from 'node:fs'; import {isDeepStrictEqual} from 'node:util'; const expected=JSON.parse(readFileSync(new URL('./expected.json',import.meta.url),'utf8'));\n";
+  let probeBody, checkABody, checkBBody;
+  if (isLRU) {
+    const setup = common + "import {loadWithClock,observeStaleClear,observeLRU,observeIdentityAndClear} from './observations.mjs'; const {LRU,advance}=loadWithClock(join(process.cwd(),'src/library.cjs'));\n";
+    probeBody = setup + "const evidence=observeStaleClear(LRU,advance); const pass=isDeepStrictEqual(evidence,expected.intended);";
+    checkABody = setup + "const evidence=observeLRU(LRU); const pass=isDeepStrictEqual(evidence,{first:1,bAbsent:true,a:1,c:3,size:2});";
+    checkBBody = setup + "const evidence=observeIdentityAndClear(LRU); const pass=isDeepStrictEqual(evidence,{firstIdentity:true,secondIdentity:true,events:[['first','x','set'],['second','x','delete']],size:0});";
+  } else {
+    const setup = common + "import {pathToFileURL} from 'node:url'; import observations from './observations.cjs'; const {default:Library}=await import(pathToFileURL(join(process.cwd(),'src/library.cjs')).href);\n";
+    const observation = name => setup + `const evidence=observations.${name}(Library); const pass=isDeepStrictEqual(evidence,expected.checks.${name}.intended);`;
+    probeBody = observation('active_pause_resume_regression');
+    checkABody = observation('retained_fifo_serial_completion');
+    checkBBody = observation('retained_callback_success_error');
+  }
+  const emit = " console.log(JSON.stringify({status:pass?'pass':'fail',evidence}));\n";
+  const probe = put(checks, 'probe.mjs', probeBody + emit);
+  const a = put(checks, 'a.mjs', checkABody + emit);
+  const b = put(checks, 'b.mjs', checkBBody + emit);
+  const context = analyze(directory, ['before', 'before', 'before'], probe, [
+    {id:isLRU?'lru-eviction':'fifo-completion',origin:'branchA',checkPath:a,dependencies:[helper,oracle]},
+    {id:isLRU?'identity-clear':'callback-contract',origin:'branchB',checkPath:b,dependencies:[helper,oracle]},
+  ], [helper,oracle], repetitions, oldFiles);
+  const fixedFiles={'src/library.cjs':bytes(newVersion,'index.cjs'),'LICENSE.library':bytes(newVersion,'LICENSE')};
+  const verification = repaired(context, 'after', fixedFiles, {...oldFiles,...fixedFiles});
+  return {context,verification};
 }
 
 try {
@@ -143,7 +216,7 @@ try {
     const classification = context.evaluated.classification;
     const repairPassed = verification?.passed ?? null;
     const matched = classification === entry.label && (entry.expectedRepair == null || repairPassed === entry.expectedRepair);
-    const row = { caseId:entry.id,provenance:entry.provenance,heldOut:entry.heldOut??false,classification,expectedClassification:entry.label,repairPassed,expectedRepair:entry.expectedRepair??null,retentionVerified:verification?.retentionVerified??false,matched,durationMs:Math.round(performance.now()-start),matrix:Object.fromEntries(Object.entries(context.evaluated.matrix).map(([key,value])=>[key,value.kind])) };
+    const row = { caseId:entry.id,provenance:entry.provenance,heldOut:entry.heldOut??false,classification,expectedClassification:entry.label,repairPassed,expectedRepair:entry.expectedRepair??null,retentionVerified:verification?.retentionVerified??false,matched,durationMs:Math.round(performance.now()-start),matrix:Object.fromEntries(Object.entries(context.evaluated.matrix).map(([key,value])=>[key,value.kind])),observedRepetitions:Object.fromEntries(Object.entries(context.evaluated.matrix).map(([key,value])=>[key,value.runs.length])),sourceIntegrity:context.sourceIntegrity };
     resultRows.push(row);
     // Durable copied reports remain after disposing the private analysis.
     const evidenceDir = join(runRoot,'evidence',entry.id); mkdirSync(evidenceDir,{recursive:true});

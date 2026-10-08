@@ -1,6 +1,9 @@
 # Keep the exact text bytes used by published SHA-256 evidence on every platform.
 * text=auto eol=lf
 
+# Preserve the exact precommitted fastq oracle bytes, including its CRLF endings.
+fixtures/cases/fastq-expected.json -text
+
 # Media and submission documents must never undergo line-ending conversion.
 *.png binary
 *.jpg binary

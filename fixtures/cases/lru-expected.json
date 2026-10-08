@@ -1,0 +1,17 @@
+{
+  "caseId": "public-lru-stale-clear",
+  "source": "https://github.com/isaacs/node-lru-cache/issues/203",
+  "fix": "31d439e2dff09d6d413670a6c6a681b7a7de5f0c",
+  "before": "lru-cache@7.4.0",
+  "after": "lru-cache@7.4.1",
+  "label": "preexisting_violation",
+  "sequence": ["set one entry at clock=100", "advance a controlled performance.now clock to 200 beyond ttl=10", "clear without get/delete first", "clear again"],
+  "intended": {"events": [["dispose", "resource", "resource-key", "delete"], ["disposeAfter", "resource", "resource-key", "delete"]], "size": 0, "keyAbsent": true, "duplicateDisposals": 0},
+  "expectedOldProbe": "fail",
+  "expectedFixedProbe": "pass",
+  "retention": ["LRU: set a,b; get a; set c evicts b and preserves a,c", "object identity, overwrite disposal and idempotent clear for fresh entries"],
+  "expectedOldRetention": "pass",
+  "expectedFixedRetention": "pass",
+  "blindness": "Evidence-derived oracle frozen before upstream execution and MergeWitness integration; upstream issue and fix reviewed. Not a blind benchmark.",
+  "rejectedSelection": "Initial 7.3.1/7.3.2 hypothesis was rejected by source review before any replay: 7.3.2 did not include this clear fix."
+}

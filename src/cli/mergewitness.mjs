@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dispose, evaluate, prepare, verifyRepair } from '../core/mergeWitness.mjs';
 import { runTenantCacheDemo } from '../demo/tenantCache.mjs';
 
-const version = '0.2.0';
+const version = '0.2.1';
 const handlers = new Map([['prepare', prepare], ['evaluate', evaluate], ['verify-repair', verifyRepair], ['dispose', dispose]]);
 const usage = () => 'Usage:\n  mergewitness <prepare|evaluate|verify-repair|dispose> <request.json> [response.json]\n  mergewitness workflow <request.json> [response.json]\n  mergewitness demo tenant-cache --out <directory>\n  mergewitness --help | --version\n';
 const args = process.argv.slice(2);

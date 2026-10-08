@@ -1,9 +1,14 @@
 name: Local validation recipe
 
 # Hosting and publication are deliberately separate from this repository.
-# This can be run manually after a remote is explicitly authorized.
+# Prepared locally; these triggers run only after a remote/push is authorized.
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read

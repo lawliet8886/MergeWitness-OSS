@@ -1,7 +1,8 @@
 {
   "version": 1,
-  "frozenAt": "2026-10-08T02:21:06.792Z",
-  "scope": "Ten small labeled cases, not a general efficacy benchmark. Public cases replay unchanged published library modules inside a newly authored minimal Git harness, not upstream Git merges.",
+  "baselineFrozenAt": "2026-10-08T02:21:06.792Z",
+  "oracleAdmission": "vendor-manifest.json records the 0.2.1 pre-integration source and expectation admission; baselineFrozenAt belongs to the original ten-case dataset.",
+  "scope": "Twelve small labeled cases, not a general efficacy benchmark. Public cases replay unchanged published library modules inside a newly authored minimal Git harness, not upstream Git merges. New 0.2.1 oracles were frozen before integration; upstream fixes were reviewed, so no blind benchmark is claimed.",
   "cases": [
     {
       "id": "tenant-cache-witness",
@@ -82,6 +83,32 @@
       "fix": "https://github.com/graphql/dataloader/pull/222",
       "relatedIncident": "https://github.com/graphql/dataloader/issues/224",
       "holdoutNote": "Observation corrected after published-module check; no blind holdout claim."
+    },
+    {
+      "id": "public-lru-stale-clear",
+      "kind": "public",
+      "library": "lru-cache",
+      "label": "preexisting_violation",
+      "provenance": "unchanged published module in minimal harness with a controlled clock",
+      "expectedRepair": true,
+      "heldOut": false,
+      "incident": "https://github.com/isaacs/node-lru-cache/issues/203",
+      "fix": "https://github.com/isaacs/node-lru-cache/commit/31d439e2dff09d6d413670a6c6a681b7a7de5f0c",
+      "oracle": "lru-expected.json"
+    },
+    {
+      "id": "public-fastq-pause-resume",
+      "kind": "public",
+      "library": "fastq",
+      "label": "preexisting_violation",
+      "provenance": "unchanged published module and dependency in minimal harness",
+      "expectedRepair": true,
+      "heldOut": false,
+      "reservedBeforeIntegration": true,
+      "holdoutNote": "Expected outcome recorded before upstream execution and MergeWitness integration. Research reviewed issue and fix, so this is not a fully blind evaluation.",
+      "incident": "https://github.com/mcollina/fastq/issues/80",
+      "fix": "https://github.com/mcollina/fastq/pull/81",
+      "oracle": "fastq-expected.json"
     }
   ]
 }

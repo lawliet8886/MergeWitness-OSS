@@ -19,7 +19,7 @@ for await (const line of input) {
     request = JSON.parse(line);
     if (request.method === 'notifications/initialized') continue;
     if (request.method === 'initialize') {
-      reply(request.id, { protocolVersion: request.params?.protocolVersion ?? '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'mergewitness', version: '0.2.0' } });
+      reply(request.id, { protocolVersion: request.params?.protocolVersion ?? '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'mergewitness', version: '0.2.1' } });
     } else if (request.method === 'tools/list') {
       reply(request.id, { tools: definitions });
     } else if (request.method === 'tools/call') {
