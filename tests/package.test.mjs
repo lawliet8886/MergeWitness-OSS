@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { cpSync, existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -24,6 +25,12 @@ function installedBin(binary, args, options) {
   return spawnSync(binary, args, { encoding: 'utf8', shell: process.platform === 'win32', ...options });
 }
 
+function contentHashes(directory) {
+  return Object.fromEntries(readdirSync(directory, { recursive: true }).sort()
+    .filter(entry => statSync(join(directory, entry)).isFile())
+    .map(entry => [entry, createHash('sha256').update(readFileSync(join(directory, entry))).digest('hex')]));
+}
+
 function stagePackSource(temp) {
   const source = join(temp, 'source');
   mkdirSync(source);
@@ -37,7 +44,7 @@ function stagePackSource(temp) {
 
 test('package exposes the private Node 22 core and both executable entrypoints', () => {
   assert.equal(manifest.name, 'mergewitness-core');
-  assert.equal(manifest.version, '0.2.1');
+  assert.equal(manifest.version, '0.3.0');
   assert.equal(manifest.private, true);
   assert.equal(manifest.type, 'module');
   assert.equal(manifest.license, 'MIT');
@@ -48,7 +55,7 @@ test('package exposes the private Node 22 core and both executable entrypoints',
   assert.deepEqual(manifest.dependencies ?? {}, {});
 });
 
-test('packed installation runs help and two isolated demos without mutating its install directory', () => {
+test('packed installation runs help, two isolated demos and offline reports without mutating installed file bytes', () => {
   const temp = mkdtempSync(join(tmpdir(), 'mergewitness-packed-'));
   try {
     const npmCli = npmCliPath();
@@ -64,7 +71,9 @@ test('packed installation runs help and two isolated demos without mutating its 
     assert.equal(readFileSync(binary, 'utf8').includes('mergewitness'), true);
     const help = installedBin(binary, ['--help']);
     assert.equal(help.status, 0, help.stderr);
-    const before = readdirSync(join(installed, 'node_modules', 'mergewitness-core'), { recursive: true }).sort();
+    assert.match(help.stdout, /report <evaluation.json>/);
+    const installedPackage = join(installed, 'node_modules', 'mergewitness-core');
+    const before = contentHashes(installedPackage);
     const output = join(temp, 'output');
     const first = installedBin(binary, ['demo', 'tenant-cache', '--out', output], { timeout: 180_000 });
     const second = installedBin(binary, ['demo', 'tenant-cache', '--out', output], { timeout: 180_000 });
@@ -73,6 +82,14 @@ test('packed installation runs help and two isolated demos without mutating its 
     const one = JSON.parse(first.stdout); const two = JSON.parse(second.stdout);
     assert.notEqual(one.outputDir, two.outputDir);
     assert.equal(one.passed && two.passed, true);
-    assert.deepEqual(readdirSync(join(installed, 'node_modules', 'mergewitness-core'), { recursive: true }).sort(), before);
+    const reports = [one, two].map(demo => {
+      const result = installedBin(binary, ['report', join(demo.outputDir, 'evaluation.public.json'), '--repair', join(demo.outputDir, 'repair.public.json'), '--out', join(temp, 'reports')]);
+      assert.equal(result.status, 0, result.stderr);
+      const receipt = JSON.parse(result.stdout);
+      assert.match(readFileSync(receipt.reportPath, 'utf8'), /Declared checks passed/);
+      return receipt;
+    });
+    assert.notEqual(reports[0].reportPath, reports[1].reportPath);
+    assert.deepEqual(contentHashes(installedPackage), before);
   } finally { rmSync(temp, { recursive: true, force: true }); }
 });

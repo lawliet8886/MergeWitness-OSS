@@ -1,6 +1,6 @@
 {
   "name": "mergewitness-core",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "description": "Local, evidence-oriented repair verification for trusted Node repositories.",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "main": "./src/core/mergeWitness.mjs",
   "exports": { ".": "./src/core/mergeWitness.mjs" },
   "bin": { "mergewitness": "./src/cli/mergewitness.mjs", "mergewitness-mcp": "./src/mcp/server.mjs" },
-  "files": ["LICENSE", "README.md", "CONTRIBUTING.md", "docs/QUICKSTART.md", "docs/API.md", "docs/POSITIONING.md", "docs/EXTERNAL_VALIDATION.md", "package-core.json", "fixtures/create-fixtures.mjs", "src/core/", "src/cli/", "src/mcp/", "src/demo/", "src/bob-probes/", "src/bob-repairs/"],
+  "files": ["LICENSE", "README.md", "CONTRIBUTING.md", "docs/QUICKSTART.md", "docs/QUICKSTART_PT_BR.md", "docs/REPORTS.md", "docs/API.md", "docs/POSITIONING.md", "docs/EXTERNAL_VALIDATION.md", "package-core.json", "fixtures/create-fixtures.mjs", "src/core/", "src/cli/", "src/mcp/", "src/demo/", "src/report/", "src/bob-probes/", "src/bob-repairs/"],
   "engines": { "node": ">=22" },
   "scripts": { "test": "node scripts/test.mjs", "test:core": "node --test tests/core.test.mjs", "test:corpus": "node scripts/run-corpus.mjs", "fixture:histories": "node fixtures/create-fixtures.mjs" }
 }

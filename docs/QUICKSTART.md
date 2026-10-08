@@ -8,10 +8,10 @@ The current version is a **local tarball**, not a published npm release. In this
 npm pack --ignore-scripts --pack-destination ./artifacts
 ```
 
-Copy `mergewitness-core-0.2.1.tgz` into a separate working directory. Verify its SHA-256 against the accompanying SHA256SUMS before installation. Install without network requests or install hooks:
+Copy `mergewitness-core-0.3.0.tgz` into a separate working directory. Verify its SHA-256 against the accompanying SHA256SUMS before installation. Install without network requests or install hooks:
 
 ```sh
-npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.2.1.tgz
+npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.3.0.tgz
 ```
 
 PowerShell:
@@ -32,7 +32,19 @@ Linux/macOS:
 
 Each invocation creates its own run directory. The demo generates synthetic Git history, evaluates a frozen operation-sequence probe, applies the retained nested-map repair in a disposable clone, verifies separate tenant-pricing and cache requirements, and removes the private clone. It leaves portable evaluation and repair JSON in your output directory; it never writes into the installed package.
 
-Expected version: `0.2.1`. Expected result: Base/A/B probe pass, Combined fails, candidate repair passes, `retentionVerified:true`. Inspect the JSON instead of treating an exit code as a general correctness proof. A second invocation must keep the first run's reports unchanged. Linux and Windows are tested; the macOS command is syntactically applicable but macOS acceptance has not been run.
+Expected version: `0.3.0`. Expected result: Base/A/B probe pass, Combined fails, candidate repair passes, `retentionVerified:true`. The known synthetic demo has two repetitions and a supplied repair, not an automatically generated correction. Inspect the JSON instead of treating an exit code as a general correctness proof. A second invocation must keep the first run's reports unchanged. Linux and Windows are tested; the macOS command is syntactically applicable but macOS acceptance has not been run.
+
+## Read the offline HTML report
+
+Use the demo's returned `outputDir`, replacing `<demo-outputDir>` below:
+
+```sh
+node ./mw-tools/node_modules/mergewitness-core/src/cli/mergewitness.mjs report "<demo-outputDir>/evaluation.public.json" --repair "<demo-outputDir>/repair.public.json" --out ./mw-reports
+```
+
+Open the returned `reportPath` in a browser. It shows **Interaction witness found** and **Declared checks passed** for this known example, with the observed wrong price and both frozen feature checks. It is self-contained, with no JavaScript or network assets. The original JSON remains the evidence. Report generation does not re-run checks; exit zero means a file was generated, not that every behavior is correct.
+
+An evaluation alone may omit `--repair`; the view explicitly says a correction was not provided. Only the supported core/portable v2 report objects are accepted. Mismatched pairs, old formats and contradictory passing claims are rejected. Keep portable evaluation bytes unchanged so their exact digest still matches the repair. See [REPORTS.md](REPORTS.md) and the executable PowerShell sequence in the [Portuguese guide](QUICKSTART_PT_BR.md).
 
 ## Run directly from source
 

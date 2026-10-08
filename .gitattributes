@@ -4,6 +4,9 @@
 # Preserve the exact precommitted fastq oracle bytes, including its CRLF endings.
 fixtures/cases/fastq-expected.json -text
 
+# Preserve the reader bytes sealed in the accepted 0.3.0 release receipt.
+src/report/report.mjs -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
 # Media and submission documents must never undergo line-ending conversion.
 *.png binary
 *.jpg binary
