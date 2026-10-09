@@ -51,4 +51,15 @@ Retained local final summary SHA-256: `8e3d499cda5d321cf0b3be72cfbe48733497d5df0
 
 The initial whole-change review found one Important normalization defect and no Critical issues. A localized independent review accepted the correction after 136 controlled observations, checked source/freeze hashes and found no new issues. The staged whitespace check initially flagged preserved CRLF bytes in three new assets; the new attributes explicitly allow CR at line endings while retaining ordinary whitespace checks and `-text`. Asset bytes and admitted hashes are unchanged; staged and unstaged diff checks now pass.
 
-The full Linux/Windows Node 22/24 matrix is pending. Local results above are the current accepted scope. Publication acceptance will be recorded here after exact-commit CI readback. No outreach, application, account changes or new paid API usage occurred.
+The [exact-commit hosted validation](https://github.com/lawliet8886/MergeWitness-OSS/actions/runs/37952666529) completed successfully for source `cbd94286cd0cc620cf146da7a9dcb30db62216ca`:
+
+| Platform | Node | Passed | Failed | Skipped | Corpus |
+|---|---|---:|---:|---:|---:|
+| Windows | 22 | 113 | 0 | 0 | 13/13 |
+| Windows | 24 | 113 | 0 | 0 | 13/13 |
+| Linux | 22 | 112 | 0 | 1 | 13/13 |
+| Linux | 24 | 112 | 0 | 1 | 13/13 |
+
+The Linux skip is the existing Windows-only directory-identity check. These are repeated platform executions, rather than a population of distinct test cases. Each job ran the full source suite and corpus with three repetitions. Root fetched all four complete logs and parsed their test totals and corpus JSON: every entry matched, old aliases failed ×3, the pinned PR passed with retention, the false candidate was rejected, direct checks matched, and cleanup succeeded. All jobs reported the same corpus SHA-256, `82a19f2e21092b037eb45e8769ff3c459ebccc76c4c80f5ac7a49faaac95a903`.
+
+The frozen admission's hosted-pending fields record its state before execution; this receipt supplies the subsequent completed gate. The final documentation-only acceptance commit preserves the tested implementation. The maintained public repository may advance from the tested commit without replacing the historical 0.3.1 tag/archive or the Site. No outreach, application, account changes or new paid API usage occurred.
