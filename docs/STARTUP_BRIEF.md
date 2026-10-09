@@ -1,6 +1,6 @@
 # MergeWitness — iniciativa e primeiro piloto
 
-Preparado em 08/10/2026. Este documento descreve uma iniciativa de software de fundador solo, com núcleo MIT e pilotos de integração. Ainda não há validação comercial externa. A data de início da atividade empresarial, a constituição formal e o histórico de financiamento não foram verificados.
+Atualizado em 09/10/2026. Este documento descreve uma iniciativa de software de fundador solo, com núcleo MIT e pilotos de integração. Ainda não há validação comercial externa. A data de início da atividade empresarial, a constituição formal e o histórico de financiamento não foram verificados.
 
 Uma [apresentação curta em inglês](STARTUP_ONE_PAGE_EN.md) foi preparada para revisão. O novo filme de dois minutos tem voz Knox, master/web, corte de 30 segundos e legendas/transcrições PT/EN; a [checagem técnica e visual foi registrada](evidence/NARRATED_FILM_SITE_0.3.0.md). O fundador aprovou a voz e o vídeo em 08/10/2026 e autorizou a substituição do site do domínio pela evolução independente; a [aprovação está registrada](evidence/PRODUCT_FILM_APPROVAL_0.3.0.md). Uma proposta encaminhada do [Claude gratuito pela web passou na verificação local e em uma análise nova](CLAUDE_WEB_WORKFLOW.md), sem criar assinatura ou cobrança de API. A origem no provedor é informada pelo usuário, sem captura independente de interface/modelo. A integração de modelo por Claude Code/MCP permanece separada e não comprovada.
 
@@ -18,7 +18,7 @@ O núcleo continua MIT, com atribuição Signal Foundry. A origem é o [protóti
 
 O plano combina software aberto com ajuda de integração. Um serviço futuro poderia apoiar a escolha da sequência, a declaração dos requisitos e a adoção no fluxo de revisão da equipe. Se o mesmo trabalho aparecer repetidamente em equipes diferentes, isso pode indicar uma oportunidade de software: adaptar entradas, organizar evidências e facilitar revisão e comparação. Se cada caso exigir investigação artesanal, teremos uma hipótese de serviço com outra economia. Ainda não há preço, demanda ou resultado medido para decidir entre essas possibilidades.
 
-O viewer HTML local da 0.3.0 foi implementado para tornar evaluation e repair mais fáceis de inspecionar, mantendo os JSON como evidência. O pacote exato passou na instalação local no Windows, com dois demos e seus relatórios. As suítes completas anteriores passaram com 88 testes no Linux e 93 no Windows, conforme as [evidências técnicas](evidence/VALIDATION_0.3.0.md) e [o registro posterior](evidence/CLAUDE_WEB_LOCAL_0.3.0.md). A [revisão visual da cópia privada](evidence/PRIVATE_SITE_QA_0.3.0.md) foi complementada pela [publicação e conferência do site público](evidence/PUBLIC_SITE_RELEASE_0.3.0.md). São verificações do proprietário/agente, sem instalação por cliente ou validação externa.
+Como histórico técnico, o viewer HTML local da 0.3.0 foi implementado para tornar evaluation e repair mais fáceis de inspecionar, mantendo os JSON como evidência. O pacote exato passou na instalação local no Windows, com dois demos e seus relatórios. As suítes completas anteriores passaram com 88 testes no Linux e 93 no Windows, conforme as [evidências técnicas](evidence/VALIDATION_0.3.0.md) e [o registro posterior](evidence/CLAUDE_WEB_LOCAL_0.3.0.md). A [revisão visual da cópia privada](evidence/PRIVATE_SITE_QA_0.3.0.md) foi complementada pela [publicação e conferência do site público](evidence/PUBLIC_SITE_RELEASE_0.3.0.md). São verificações do proprietário/agente, sem instalação por cliente ou validação externa.
 
 [QuietClash](https://github.com/arbade/quietclash) e [mumei](https://github.com/iroha924/mumei) apresentam ideias sobrepostas de comparação comportamental e proteção de checks. O [posicionamento](POSITIONING.md) registra o alcance da comparação disponível e suas limitações. Não reivindicamos novidade geral nem superioridade.
 
@@ -30,7 +30,7 @@ O núcleo é o mesmo software MIT; a gratuidade do piloto não estabelece preço
 
 O [kit do piloto](PILOT_KIT.md) contém perguntas antes do pitch, consentimento, roteiro de reprodução, ficha de caso e registro de retorno. O grupo de cinco desenvolvedores para aprendizagem não amplia o piloto de integração além de um repositório e um caso.
 
-## Evidência em 08/10/2026
+## Estado atual em 09/10/2026
 
 | Item | Estado observado |
 | --- | --- |
@@ -41,15 +41,26 @@ O [kit do piloto](PILOT_KIT.md) contém perguntas antes do pitch, consentimento,
 | Usuários, clientes e receita | Nenhum comprovado |
 | Proposta assistida por Claude | Uma resposta web encaminhada pelo usuário, verificada e repetida localmente em caso sintético; integração Claude Code/MCP e uso por clientes não comprovados |
 | Empresa formal e data de início empresarial | Não verificadas |
-| Pacote/viewer 0.3.0 | Candidata aceita disponível no site público, com instalação, exemplos, relatórios e filme aprovado; repositório independente público e validação externa pendentes |
+| Pacote/viewer 0.3.1 | [Release pública aceita](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.1), sem publicação npm; [recibo atual](evidence/ACCEPTANCE_0.3.1.md): quatro jobs Linux/Windows Node 22/24 e dois demos/relatórios instalados frescos. São verificações técnicas, sem participante externo |
+| Publicação do site | Recibo 0.3.0 histórico preservado; alterações editoriais deste ciclo não são declaradas publicadas por este documento |
 
-As metas de aprendizagem são três de cinco reproduções sem ajuda em cerca de dez minutos, um caso real externo e dois retornos concretos em 7–14 dias. Registrar falhas e intervenções é parte do resultado. Esses números são metas internas, não requisitos de programas de apoio.
+As metas de aprendizagem são três de cinco reproduções sem ajuda em cerca de dez minutos, um caso real externo e dois retornos concretos em 7–14 dias. A rota inicial é assíncrona pelo GitHub: tempos e ajuda são relatados pelo participante, salvo observação independente; preparação de pré-requisitos é separada. Registrar falhas e intervenções é parte do resultado. A meta usa cinco tentativas como denominador e não promete conclusão em dez minutos. Uma pergunta técnica conta como retorno concreto, sem comprovar segundo uso independente. Esses números são metas internas, não requisitos de programas de apoio.
+
+## Descoberta comercial antes de ampliar
+
+1. Revisar candidatos e regras dos canais; dez candidatos preparados são hipóteses, não clientes nem pilotos qualificados. Nenhum convite foi enviado.
+2. Após autorização de contato, pedir um problema recente e entender frequência, decisão de revisão e fluxo anterior antes de apresentar a ferramenta.
+3. Qualificar somente um caso consentido que possa ser minimizado em Node com requisitos explícitos; suites completas de outros runners não são suportadas.
+4. Delimitar o piloto gratuito (um repositório, um caso, até duas sessões), comparar esforço anterior e esforço no piloto quando mensuráveis, e registrar benefício ou bloqueio.
+5. Conferir os retornos de 7–14 dias antes de propor outro escopo. Qualquer preço, contrato ou aplicação depende de evidência e acordo posteriores; não há preço ou receita inventados.
+
+Ficha econômica ainda vazia: tempo relatado/medido do fluxo anterior e sua fonte; tempo de preparação, execução e suporte; custos existentes atribuíveis ao caso; custo incremental real (desconhecido até registro, novas despesas não autorizadas); critério de aceitação combinado; resultado desse critério; benefício medido e fonte; bloqueios; recorrência; disposição a pagar, se espontaneamente informada e consentida. Não converter gratuidade em receita nem estimativa em economia observada.
 
 ## Próximas decisões
 
-O [site do domínio](https://mergewitness.com.br/?lang=pt) foi atualizado após autorização do fundador. O pacote aceito, as instruções, os relatórios e o filme aprovado estão públicos; a origem no concurso foi preservada no histórico. A [publicação do site está registrada](evidence/PUBLIC_SITE_RELEASE_0.3.0.md). O fundador autorizou também o [repositório independente e sua release](https://github.com/lawliet8886/MergeWitness-OSS). Não há publicação no registro npm.
+Como histórico de publicação, o [site do domínio](https://mergewitness.com.br/?lang=pt) foi atualizado após autorização do fundador com pacote, instruções, relatórios e filme aprovado; a origem no concurso foi preservada. O [recibo do site 0.3.0](evidence/PUBLIC_SITE_RELEASE_0.3.0.md) descreve aquele snapshot. A confirmação das alterações deste ciclo depende do novo recibo de publicação e readback. O fundador autorizou também o [repositório independente e sua release](https://github.com/lawliet8886/MergeWitness-OSS). Não há publicação no registro npm.
 
-O próximo passo é executar o protocolo externo após autorização de contato e consentimento dos participantes. A decisão comercial deve usar o problema anterior, o trabalho necessário, o benefício observado e o retorno da equipe; não apenas elogios ou instalação concluída.
+O próximo passo é executar o [protocolo assíncrono](EXTERNAL_VALIDATION.md) após autorização de contato e consentimento dos participantes. Os [guias de participação](PARTICIPATE_PT_BR.md) e o formulário público estão preparados; preparação não equivale a contato ou uso. A decisão comercial deve usar o problema anterior, o trabalho necessário, o benefício observado e o retorno da equipe; não apenas elogios ou instalação concluída.
 
 A candidatura à Anthropic será preparada para avaliação **depois de um piloto real**, conforme a decisão do fundador. Isso é nosso gate de evidência. A aprovação continua discricionária e considera, entre outros fatores, tração, financiamento e integração/uso de Claude. [Termos oficiais](https://www.anthropic.com/startup-program-official-terms).
 

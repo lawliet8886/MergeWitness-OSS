@@ -26,10 +26,10 @@ An optional model can suggest a candidate while MergeWitness retains the declare
 
 ## Evidence we need next
 
-The next step is to invite outside developers to test comprehension and reproduction, then investigate one consented real case. Internal learning targets are three unaided reproductions in roughly ten minutes and two concrete returns after 7–14 days. Assisted attempts, failures and missing follow-ups will be recorded.
+The prepared next step is [asynchronous participation](PARTICIPATE.md) through GitHub, after outreach authorization and consent, then one consented externally supplied real case. Internal targets are three unaided reproductions among five external attempts in roughly ten minutes and two concrete returns after 7–14 days. Ten minutes is a research target, not a product promise. Prerequisite setup and attempt time are separate; asynchronous times/help are participant-reported unless independently observed. Assisted attempts, failures and missing follow-ups remain visible. A concrete question counts as a return but does not establish second independent use.
 
-External pilots, customers, revenue and recurring demand have not been demonstrated.
+External contacts, attempts, cases and returns remain zero; customers, revenue and recurring demand have not been demonstrated. The 0.3.0 site/technical receipts are historical; editorial changes in this cycle require a new publication readback.
 
-Founder/maintainer: Gabriel da Silva Fernandes. Pilot contact: `gabriel@mergewitness.com.br`. The contact link opens an email composer; mailbox delivery has not been verified. Sponsorship, endorsement and program acceptance are not claimed.
+Founder/maintainer: Gabriel da Silva Fernandes. GitHub is the primary participation route; secondary pilot contact: `gabriel@mergewitness.com.br`. The contact link opens an email composer; mailbox delivery has not been verified. Sponsorship, endorsement and program acceptance are not claimed.
 
 Origin: [Signal Foundry's MIT-licensed IBM Bob prototype](https://github.com/lawliet8886/MergeWitness/tree/5b649c4bdf4a9372c9f890816835c100b5be0d01). Its repository and historical evidence are preserved.

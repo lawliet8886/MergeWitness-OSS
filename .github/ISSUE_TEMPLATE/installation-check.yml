@@ -1,0 +1,81 @@
+name: Installation experience / Experiência de instalação
+description: Report an asynchronous attempt with sanitized evidence (EN/PT).
+title: "[Installation] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Do not post private source, paths, names, tokens, recordings or client records. / Esta issue é pública. Não publique fonte, caminhos ou nomes privados, tokens, gravações ou dados de clientes.
+        Times/help are participant-reported unless independently observed. Unknown is valid. / Tempos/ajuda são relatados pelo participante salvo observação independente. Pode informar que não sabe.
+  - type: checkboxes
+    id: public-consent
+    attributes:
+      label: Public consent / Consentimento público
+      options:
+        - label: I consent to publish this sanitized response as a public GitHub issue. / Consinto em publicar esta resposta sanitizada como issue pública no GitHub.
+          required: true
+  - type: input
+    id: release
+    attributes:
+      label: Actual release and version / Release e versão reais
+      description: Release tag, archive checksum if checked, and actual --version output. No private paths.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / Ambiente
+      description: OS and versions from node --version, npm --version and git --version; say which prerequisite was missing.
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome / Resultado
+      options:
+        - Unaided reproduction / Reprodução sem ajuda
+        - Assisted reproduction / Reprodução com ajuda
+        - Not finished / Não concluída
+        - Prerequisites missing / Faltaram pré-requisitos
+    validations:
+      required: true
+  - type: input
+    id: setup-time
+    attributes:
+      label: Prerequisite setup time / Tempo de preparação dos pré-requisitos
+      description: Participant-reported minutes or seconds, zero if already ready, or unknown. Include units.
+    validations:
+      required: true
+  - type: input
+    id: attempt-time
+    attributes:
+      label: Attempt time / Tempo da tentativa
+      description: Participant-reported time from opening participant instructions with prerequisites ready, including download/hash/install/demo/report. Give units, actual timing boundary and pauses; inseparable or unmeasured time is unknown, never an invented restart or zero.
+    validations:
+      required: true
+  - type: textarea
+    id: understanding
+    attributes:
+      label: Result understanding / Compreensão do resultado
+      description: Did you open the actual reportPath? Explain the Combined failure, candidate result and retained pricing/cache behaviors, or where you stopped. Do not post paths.
+    validations:
+      required: true
+  - type: textarea
+    id: help
+    attributes:
+      label: Help received / Ajuda recebida
+      description: None, or what help you used (person, AI, extra guide), when it started and where it changed the result. No names. Help means the attempt is assisted.
+    validations:
+      required: true
+  - type: textarea
+    id: errors
+    attributes:
+      label: Sanitized errors / Erros sanitizados
+      description: Optional minimal command/error excerpt. Remove private paths, source, names, tokens and client data. Do not attach full reports or state files.
+  - type: dropdown
+    id: follow-up
+    attributes:
+      label: Optional follow-up in 7–14 days / Retorno opcional em 7–14 dias
+      options:
+        - No follow-up requested / Não quero retorno
+        - I welcome a follow-up in this issue / Aceito um retorno nesta issue
