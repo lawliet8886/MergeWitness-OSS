@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { mkdtempSync } from "node:fs";
-import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import test from "node:test";
 import {
@@ -74,7 +73,22 @@ test(
         { encoding: "utf8" },
       );
       assert.equal(added.status, 0, added.stderr);
-      assert.match(readFileSync(join(candidate, ".git"), "utf8"), /^gitdir:\s*c:/im);
+      const drive = /^([a-z]):/.exec(candidate)?.[1];
+      assert.ok(drive, "The Windows candidate must use a lowercase drive alias.");
+      const pointerPath = join(candidate, ".git");
+      const originalPointer = readFileSync(pointerPath, "utf8");
+      assert.match(originalPointer, /^gitdir:\s*[A-Za-z]:/m);
+      const aliasPointer = originalPointer.replace(
+        /^(gitdir:\s*)[A-Za-z]:/m,
+        `$1${drive}:`,
+      );
+      assert.equal(Buffer.byteLength(aliasPointer), Buffer.byteLength(originalPointer));
+      // Git marks the pointer hidden on Windows; update the existing file in place.
+      writeFileSync(pointerPath, aliasPointer, { flag: "r+" });
+      assert.match(
+        readFileSync(pointerPath, "utf8"),
+        new RegExp(`^gitdir:\\s*${drive}:`, "m"),
+      );
       assert.equal(
         verifyRepair({
           analysisId: analysis.analysisId,
