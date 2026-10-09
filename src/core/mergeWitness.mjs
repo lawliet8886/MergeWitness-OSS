@@ -669,8 +669,12 @@ export function verifyRepair({ analysisId, statePath, candidatePath }) {
     throw new Error(
       "candidatePath must be a disposable worktree inside this analysis clone.",
     );
-  const common = realpathSync(resolve(candidate, git(candidate, 'rev-parse', '--git-common-dir')));
-  const ownedCommon = realpathSync(resolve(a.clonePath, git(a.clonePath, 'rev-parse', '--git-common-dir')));
+  const common = realpathSync.native(
+    resolve(candidate, git(candidate, "rev-parse", "--git-common-dir")),
+  );
+  const ownedCommon = realpathSync.native(
+    resolve(a.clonePath, git(a.clonePath, "rev-parse", "--git-common-dir")),
+  );
   if (common !== ownedCommon) throw new Error('Candidate worktree must belong to this analysis clone.');
   if (
     git(candidate, "merge-base", "--is-ancestor", a.commits.merged, "HEAD") !==

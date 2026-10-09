@@ -12,7 +12,7 @@ test('CLI exposes help and version without JSON request files', () => {
   assert.match(help.stdout, /mergewitness.*prepare/i);
   const version = spawnSync(process.execPath, [cli, '--version'], { encoding: 'utf8' });
   assert.equal(version.status, 0, version.stderr);
-  assert.equal(version.stdout.trim(), '0.3.0');
+  assert.equal(version.stdout.trim(), '0.3.1');
 });
 
 test('MCP lists state-backed v2 inputs and rejects inherited handler names', () => {
@@ -24,7 +24,7 @@ test('MCP lists state-backed v2 inputs and rejects inherited handler names', () 
   const result = spawnSync(process.execPath, [mcp], { encoding: 'utf8', input });
   assert.equal(result.status, 0, result.stderr);
   const [initialized, listed, rejected] = result.stdout.trim().split(/\r?\n/).map(JSON.parse);
-  assert.equal(initialized.result.serverInfo.version, '0.3.0');
+  assert.equal(initialized.result.serverInfo.version, '0.3.1');
   const prepare = listed.result.tools.find((entry) => entry.name === 'prepare');
   const evaluate = listed.result.tools.find((entry) => entry.name === 'evaluate');
   const verify = listed.result.tools.find((entry) => entry.name === 'verifyRepair');

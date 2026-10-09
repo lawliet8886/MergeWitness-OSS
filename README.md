@@ -4,7 +4,9 @@ Replay a sequence of operations, compare its observed behavior across trusted Gi
 
 This is an independent open source evolution of the MIT-licensed IBM Bob prototype. The original [competition repository](https://github.com/lawliet8886/MergeWitness/tree/5b649c4bdf4a9372c9f890816835c100b5be0d01) is preserved. The project keeps its initial name and Signal Foundry attribution; provider support is optional.
 
-[Website and two-minute film](https://mergewitness.com.br/?lang=en) · [Guia em português](docs/QUICKSTART_PT_BR.md) · [0.3.0 release candidate](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.0) · [Report a reproducible case](https://github.com/lawliet8886/MergeWitness-OSS/issues/new/choose)
+[Website and two-minute film](https://mergewitness.com.br/?lang=en) · [Guia em português](docs/QUICKSTART_PT_BR.md) · [0.3.1 release candidate](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.1) · [Report a reproducible case](https://github.com/lawliet8886/MergeWitness-OSS/issues/new/choose)
+
+[![Watch the recorded synthetic example: replay the failure and check the repair](https://mergewitness.com.br/assets/product030-film/poster.png)](https://mergewitness.com.br/#product-video)
 
 ## Try the local version
 
@@ -18,7 +20,7 @@ node src/cli/mergewitness.mjs demo tenant-cache --out ./artifacts/demo
 
 The same frozen probe passes in Base/A/B, fails in their clean combination, and passes after the retained repair. Independent pricing and externally observed cache checks must still pass. Each run writes distinct portable JSON and cleans its private clone.
 
-To install the accepted v0.3.0 tarball, download it and `SHA256SUMS` from the [GitHub release](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.0), then follow the [English quickstart](docs/QUICKSTART.md) or [guia em português](docs/QUICKSTART_PT_BR.md). The package's `private:true` prevents accidental npm publication; the source is public and MIT-licensed. There is no npm registry release.
+To install the 0.3.1 tarball, download it and `SHA256SUMS` from the [GitHub release](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.1), then follow the [English quickstart](docs/QUICKSTART.md) or [guia em português](docs/QUICKSTART_PT_BR.md). The package's `private:true` prevents accidental npm publication; the source is public and MIT-licensed. There is no npm registry release.
 
 Turn the returned demo's `evaluation.public.json` and `repair.public.json` into a readable offline view:
 
@@ -30,7 +32,7 @@ Replace `<demo-outputDir>` with the demo's actual returned `outputDir`. The HTML
 
 ## What works and what remains unvalidated
 
-The Node core, JSON CLI and stdio MCP stages operate on trusted local repositories. Version 2 records explicit A/B requirements, declared dependency manifests, execution failures and attempt-specific reports. Read the [API contract](docs/API.md), [0.3.0 validation receipt](docs/evidence/VALIDATION_0.3.0.md) and preserved [0.2.1 baseline](docs/evidence/VALIDATION_0.2.1.md) for exact commands, outcomes and remaining gates. A [user-forwarded free Claude web proposal](https://mergewitness.com.br/claude-web-workflow.html) passed its recorded local checks and a fresh replay in the synthetic case. The [MCP client check](docs/evidence/MCP_0.3.0.md) remains separate from an unverified model-mediated Claude Code/MCP integration. Provider UI/model identity were not independently captured.
+The Node core, JSON CLI and stdio MCP stages operate on trusted local repositories. Version 2 records explicit A/B requirements, declared dependency manifests, execution failures and attempt-specific reports. Read the [API contract](docs/API.md), [0.3.1 Windows correction](docs/evidence/WINDOWS_PATH_0.3.1.md), [0.3.0 baseline](docs/evidence/VALIDATION_0.3.0.md) and preserved [0.2.1 baseline](docs/evidence/VALIDATION_0.2.1.md) for exact commands, outcomes and remaining gates. A [user-forwarded free Claude web proposal](https://mergewitness.com.br/claude-web-workflow.html) passed its recorded local checks and a fresh replay in the synthetic case. The [MCP client check](docs/evidence/MCP_0.3.0.md) remains separate from an unverified model-mediated Claude Code/MCP integration. Provider UI/model identity were not independently captured.
 
 ```sh
 node scripts/test.mjs

@@ -4,7 +4,7 @@ import { dispose, evaluate, prepare, verifyRepair } from '../core/mergeWitness.m
 import { runTenantCacheDemo } from '../demo/tenantCache.mjs';
 import { createReport } from '../report/report.mjs';
 
-const version = '0.3.0';
+const version = '0.3.1';
 const handlers = new Map([['prepare', prepare], ['evaluate', evaluate], ['verify-repair', verifyRepair], ['dispose', dispose]]);
 const usage = () => 'Usage:\n  mergewitness <prepare|evaluate|verify-repair|dispose> <request.json> [response.json]\n  mergewitness workflow <request.json> [response.json]\n  mergewitness demo tenant-cache --out <directory>\n  mergewitness report <evaluation.json> [--repair <repair.json>] --out <directory>\n  mergewitness --help | --version\n';
 const args = process.argv.slice(2);

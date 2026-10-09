@@ -1,6 +1,6 @@
 # Instalar e reproduzir o MergeWitness
 
-Requisitos: Node.js 22 ou superior, npm e Git no PATH. Baixe `mergewitness-core-0.3.0.tgz` e `SHA256SUMS` na [release candidata do GitHub](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.0). O arquivo aceito tem 40515 bytes e SHA-256 `848a0f35f05604a561215da34e03ba359d14f256f69ed4196fcf1b62dd3dd688`. Não há publicação no registro npm. O núcleo não precisa de chave de API nem de dependências npm em tempo de execução.
+Requisitos: Node.js 22 ou superior, npm e Git no PATH. Baixe `mergewitness-core-0.3.1.tgz` e `SHA256SUMS` na [release candidata do GitHub](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.1). Compare o arquivo baixado com o `SHA256SUMS` publicado junto à release. Não há publicação no registro npm. O núcleo não precisa de chave de API nem de dependências npm em tempo de execução.
 
 Para gerar seu próprio pacote, clone o código e crie a pasta de saída antes:
 
@@ -11,11 +11,11 @@ node -e "require('node:fs').mkdirSync('artifacts',{recursive:true})"
 npm pack --ignore-scripts --pack-destination ./artifacts
 ```
 
-Copie o pacote escolhido para uma pasta separada. No download oficial, compare o hash com o `SHA256SUMS` da release. Ao gerar outro pacote pelo código, calcule e guarde o hash desse novo arquivo: as atualizações de documentação podem mudar seus bytes, sem alterar o núcleo. Não atribua o checksum oficial a um arquivo reconstruído. No PowerShell:
+Copie o pacote escolhido para uma pasta separada. No download oficial, compare o hash com o `SHA256SUMS` da release. Ao gerar outro pacote pelo código, calcule e guarde o hash desse novo arquivo: as condições de empacotamento podem mudar seus bytes. Não atribua o checksum oficial a um arquivo reconstruído. No PowerShell:
 
 ```powershell
-Get-FileHash ./mergewitness-core-0.3.0.tgz -Algorithm SHA256
-npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.3.0.tgz
+Get-FileHash ./mergewitness-core-0.3.1.tgz -Algorithm SHA256
+npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.3.1.tgz
 if ($LASTEXITCODE -ne 0) { throw 'A instalação falhou.' }
 ```
 
@@ -35,7 +35,7 @@ $report.reportPath
 
 Abra o arquivo indicado no navegador. Ele funciona offline e não executa código do repositório. Também é possível usar `./mw-tools/node_modules/.bin/mergewitness.cmd` no Windows ou `./mw-tools/node_modules/.bin/mergewitness` no Linux. Os comandos completos com `node` dispensam alterações no PATH.
 
-Resultado esperado: versão `0.3.0`; a sequência passa na base e nas alterações A e B, falha na combinação e passa após a correção preparada. Os requisitos separados de preço por cliente e cache também passam. O relatório mostra **Interaction witness found** e **Declared checks passed**. É um exemplo sintético conhecido, com duas repetições, e a correção é fornecida; não há descoberta ou geração automática de correção.
+Resultado esperado: versão `0.3.1`; a sequência passa na base e nas alterações A e B, falha na combinação e passa após a correção preparada. Os requisitos separados de preço por cliente e cache também passam. O relatório mostra **Interaction witness found** e **Declared checks passed**. É um exemplo sintético conhecido, com duas repetições, e a correção é fornecida; não há descoberta ou geração automática de correção.
 
 Rode novamente: cada execução deve produzir diretórios diferentes e preservar os relatórios anteriores. O comando `report` pode omitir `--repair`; nesse caso, o HTML deixa claro que a correção não foi fornecida. Seu código de saída zero indica geração do arquivo, não aprovação universal de uma correção.
 

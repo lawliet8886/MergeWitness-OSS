@@ -2,7 +2,7 @@
 
 Prerequisites: Node.js 22 or newer, npm, and Git on PATH. The core has no npm runtime dependencies and the demonstration needs no API key.
 
-Download `mergewitness-core-0.3.0.tgz` and `SHA256SUMS` from the [GitHub release candidate](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.0). The accepted archive is 40515 bytes, SHA-256 `848a0f35f05604a561215da34e03ba359d14f256f69ed4196fcf1b62dd3dd688`. There is no npm registry release.
+Download `mergewitness-core-0.3.1.tgz` and `SHA256SUMS` from the [GitHub release candidate](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.1). Verify the downloaded archive against the `SHA256SUMS` published with the release. There is no npm registry release.
 
 To build your own tarball instead, clone the source and create its ignored output directory first:
 
@@ -13,10 +13,10 @@ node -e "require('node:fs').mkdirSync('artifacts',{recursive:true})"
 npm pack --ignore-scripts --pack-destination ./artifacts
 ```
 
-Copy the tarball into a separate working directory. Verify the downloaded release against its accompanying SHA256SUMS before installation. A source rebuild can have a different hash because documentation changed after candidate acceptance; compute and retain that build's own hash instead of borrowing the official release checksum. Install without network requests or install hooks:
+Copy the tarball into a separate working directory. Verify the downloaded release against its accompanying SHA256SUMS before installation. A source rebuild can have a different hash because packaging conditions can differ; compute and retain that build's own hash instead of borrowing the official release checksum. Install without network requests or install hooks:
 
 ```sh
-npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.3.0.tgz
+npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.3.1.tgz
 ```
 
 PowerShell:
@@ -37,7 +37,7 @@ Linux/macOS:
 
 Each invocation creates its own run directory. The demo generates synthetic Git history, evaluates a frozen operation-sequence probe, applies the retained nested-map repair in a disposable clone, verifies separate tenant-pricing and cache requirements, and removes the private clone. It leaves portable evaluation and repair JSON in your output directory; it never writes into the installed package.
 
-Expected version: `0.3.0`. Expected result: Base/A/B probe pass, Combined fails, candidate repair passes, `retentionVerified:true`. The known synthetic demo has two repetitions and a supplied repair, not an automatically generated correction. Inspect the JSON instead of treating an exit code as a general correctness proof. A second invocation must keep the first run's reports unchanged. Linux and Windows are tested; the macOS command is syntactically applicable but macOS acceptance has not been run.
+Expected version: `0.3.1`. Expected result: Base/A/B probe pass, Combined fails, candidate repair passes, `retentionVerified:true`. The known synthetic demo has two repetitions and a supplied repair, not an automatically generated correction. Inspect the JSON instead of treating an exit code as a general correctness proof. A second invocation must keep the first run's reports unchanged. Linux and Windows are tested; the macOS command is syntactically applicable but macOS acceptance has not been run.
 
 ## Read the offline HTML report
 
