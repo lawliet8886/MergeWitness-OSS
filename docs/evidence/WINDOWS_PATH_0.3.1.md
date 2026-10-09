@@ -1,5 +1,7 @@
 # Windows common-directory identity correction — 0.3.1
 
+Final acceptance supersedes the preparation-pending flags below: [four successful hosted jobs and exact installed archive](ACCEPTANCE_0.3.1.md). Earlier failures and limitations remain recorded.
+
 The first hosted publication run, [37909284542](https://github.com/lawliet8886/MergeWitness-OSS/actions/runs/37909284542), passed on Linux Node 22/24 but failed 20 of 98 checks on each Windows job. The shared error was `Candidate worktree must belong to this analysis clone.` The failed run remains visible.
 
 Read-only investigation reproduced the root cause on Windows: legacy `fs.realpathSync` preserves the input drive-letter spelling, so two spellings of the same `.git` directory compared unequal. `fs.realpathSync.native` resolves them to the same native canonical path. Filesystem identity and a zero relative path confirmed that both names referred to one directory.

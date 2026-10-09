@@ -51,9 +51,9 @@ Combinar um retorno em **7–14 dias**. A meta é **dois retornos concretos** en
 
 ## Technical runbook — prepared 0.3.0 workflow
 
-**The accepted package is now available on the public Site; external reproduction remains pending.** The unchanged 0.3.0 tarball passed two installed demos/reports on Windows. Earlier full suites passed 88 Linux checks and 93 Windows checks; these are recorded baselines, not new publication-time runs. Its SHA-256 is `848a0f35f05604a561215da34e03ba359d14f256f69ed4196fcf1b62dd3dd688`; see [technical acceptance](evidence/VALIDATION_0.3.0.md), [later Windows/provider checks](evidence/CLAUDE_WEB_LOCAL_0.3.0.md) and [public release QA](evidence/PUBLIC_SITE_RELEASE_0.3.0.md). The founder approved the narration/video; the user-forwarded Claude web proposal passed its recorded local checks. Obtain contact authorization before invitations and participant consent before the pilot. The [0.2.1 baseline](evidence/VALIDATION_0.2.1.md) remains historical evidence. The independent source and accepted archive are available on GitHub; there is no npm registry release.
+**The accepted 0.3.1 patch is available on GitHub; external reproduction remains pending.** Its 41168-byte archive has SHA-256 `d4a29f561e1e42015dfa12aa5726e268e9d48686fa5f71b84fbdf236d816f763`. The [current technical receipt](evidence/ACCEPTANCE_0.3.1.md) records four successful Linux/Windows Node 22/24 jobs and two fresh installed demos/reports. Historical 0.3.0/0.2.1 receipts and artifacts remain preserved. The founder approved the film; the separately recorded Claude web proposal remains scoped to its original synthetic case. Obtain contact authorization before invitations and participant consent before the pilot. There is no npm registry release.
 
-Prerequisites: Node >=22, npm and Git. Check their versions first. Use a new working directory and installation prefix. Obtain the actual `mergewitness-core-0.3.0.tgz` and SHA-256 receipt from the accepted local release. Compare the file hash using `Get-FileHash` in PowerShell or `sha256sum` on Linux before installing. A missing receipt is a stop, not a placeholder hash.
+Prerequisites: Node >=22, npm and Git. Check their versions first. Use a new working directory and installation prefix. Obtain the actual `mergewitness-core-0.3.1.tgz` and SHA-256 receipt from the accepted local release. Compare the file hash using `Get-FileHash` in PowerShell or `sha256sum` on Linux before installing. A missing receipt is a stop, not a placeholder hash.
 
 Installed package commands (forward-slash paths work with Node on Windows and Unix):
 
@@ -61,12 +61,12 @@ Installed package commands (forward-slash paths work with Node on Windows and Un
 node --version
 npm --version
 git --version
-npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.3.0.tgz
+npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.3.1.tgz
 node ./mw-tools/node_modules/mergewitness-core/src/cli/mergewitness.mjs --version
 node ./mw-tools/node_modules/mergewitness-core/src/cli/mergewitness.mjs demo tenant-cache --out ./mw-demo
 ```
 
-Require version `0.3.0`. Read the returned JSON and copy its **actual `outputDir`**. That unique directory contains `evaluation.public.json` and `repair.public.json`. In the next command, replace `<outputDir>` with that returned path; retain quotes around paths containing spaces:
+Require version `0.3.1`. Read the returned JSON and copy its **actual `outputDir`**. That unique directory contains `evaluation.public.json` and `repair.public.json`. In the next command, replace `<outputDir>` with that returned path; retain quotes around paths containing spaces:
 
 ```sh
 node ./mw-tools/node_modules/mergewitness-core/src/cli/mergewitness.mjs report "<outputDir>/evaluation.public.json" --repair "<outputDir>/repair.public.json" --out ./mw-reports
