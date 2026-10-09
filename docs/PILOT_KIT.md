@@ -1,6 +1,6 @@
 # MergeWitness — kit do primeiro piloto
 
-Preparado em 08/10/2026. **Nenhum evento externo observado:** 0 contatos, 0 instalações, 0 casos e 0 retornos. Os roteiros e modelos abaixo estão vazios; não documentam atividades já realizadas. Contato e distribuição ainda precisam de autorização própria.
+Preparado em 08/10/2026. O [site público](https://mergewitness.com.br/?lang=pt) oferece a candidata aceita, instruções, exemplos e o filme aprovado; a [publicação está registrada](evidence/PUBLIC_SITE_RELEASE_0.3.0.md). **Nenhum piloto externo observado:** 0 contatos, 0 instalações por participantes, 0 casos e 0 retornos. Os roteiros e modelos abaixo estão vazios; não documentam atividades já realizadas. Convites e contato individual ainda precisam de autorização própria.
 
 ## Oferta e limites
 
@@ -51,7 +51,7 @@ Combinar um retorno em **7–14 dias**. A meta é **dois retornos concretos** en
 
 ## Technical runbook — prepared 0.3.0 workflow
 
-**Technical acceptance and the recorded owner-private rendered QA passed; distribution remains pending.** The corrected 0.3.0 tarball passed two installed demos/reports on Windows and the full native Linux suite passed 88 tests. Its SHA-256 is `848a0f35f05604a561215da34e03ba359d14f256f69ed4196fcf1b62dd3dd688`; see [the technical receipt](evidence/VALIDATION_0.3.0.md) and [private rendered checkpoint](evidence/PRIVATE_SITE_QA_0.3.0.md). Obtain distribution/contact authorization before delivering this kit externally. New video/provider-workflow changes need their own validation. The [0.2.1 baseline](evidence/VALIDATION_0.2.1.md) remains historical evidence. No public npm release is assumed.
+**The accepted package is now available on the public Site; external reproduction remains pending.** The unchanged 0.3.0 tarball passed two installed demos/reports on Windows. Earlier full suites passed 88 Linux checks and 93 Windows checks; these are recorded baselines, not new publication-time runs. Its SHA-256 is `848a0f35f05604a561215da34e03ba359d14f256f69ed4196fcf1b62dd3dd688`; see [technical acceptance](evidence/VALIDATION_0.3.0.md), [later Windows/provider checks](evidence/CLAUDE_WEB_LOCAL_0.3.0.md) and [public release QA](evidence/PUBLIC_SITE_RELEASE_0.3.0.md). The founder approved the narration/video; the user-forwarded Claude web proposal passed its recorded local checks. Obtain contact authorization before invitations and participant consent before the pilot. The [0.2.1 baseline](evidence/VALIDATION_0.2.1.md) remains historical evidence. No independent public GitHub repository or public npm release is assumed.
 
 Prerequisites: Node >=22, npm and Git. Check their versions first. Use a new working directory and installation prefix. Obtain the actual `mergewitness-core-0.3.0.tgz` and SHA-256 receipt from the accepted local release. Compare the file hash using `Get-FileHash` in PowerShell or `sha256sum` on Linux before installing. A missing receipt is a stop, not a placeholder hash.
 

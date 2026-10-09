@@ -1,6 +1,6 @@
 # Narração do produto — português
 
-Knox stock voice, generated through the existing Google Vids account on 2026-10-08. The exported narration is 101.888 seconds. The 120-second film inserts section pauses without respeeding speech. PT/EN captions are aligned to the actual recorded speech with local ASR; proper-name recognition is fallible. Owner listening approval remains pending.
+Knox stock voice, generated through the existing Google Vids account on 2026-10-08. The exported narration is 101.888 seconds. The 120-second film inserts section pauses without respeeding speech. PT/EN captions are aligned to the actual recorded speech with local ASR; proper-name recognition is fallible. The founder listened and approved the voice and video on 2026-10-08; see [owner acceptance](evidence/PRODUCT_FILM_APPROVAL_0.3.0.md).
 
 Duas mudanças podem passar nos testes e falhar quando se encontram. O problema pode estar na ordem das operações, mesmo após um merge Git sem conflito.
 

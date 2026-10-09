@@ -1,0 +1,7 @@
+# Product film owner acceptance — 2026-10-08
+
+The founder listened to the delivered stock-Knox narration and reviewed the video through the owner-private Site, then explicitly stated: "a voz tá aprovada, vídeo aprovado também". The same instruction requested the next steps and replacement of the domain's historical presentation by the current independent project. This supersedes the pending owner-listening and public-site authorization flags in earlier dated receipts.
+
+The accepted film is the unchanged 120-second `narrated-film-003` edit. Web MP4 SHA-256: `fabbc2e210d439809d4356479180b0b8758b5da22f25d69d1936b22bc86ff191`. The unchanged 30.02-second cut has SHA-256 `bc2c681ce77de493e0fe2d73b969d06d59e71a8c2eb2955aa2c2c468d1d02657`. Bilingual captions, original stock voice, synthetic-case provenance and the preserved historical archive remain as technically and visually reviewed in [the preceding milestone](NARRATED_FILM_SITE_0.3.0.md).
+
+This is owner acceptance of the media and authorization for the existing public Site update. It does not establish external users, commercial traction, a Claude Code/MCP model integration, provider sponsorship, startup-program eligibility or acceptance. Independent GitHub/npm publication, outreach and application submission were not performed by this approval record. The exact 0.3.0 package remains the previously accepted local release candidate.
