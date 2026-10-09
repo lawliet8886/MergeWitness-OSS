@@ -1,6 +1,6 @@
 # Contributing to MergeWitness
 
-This independent checkout is being prepared locally. No new public repository, npm release, outreach campaign or provider integration has been published. Once a maintained remote exists, these instructions can support issues and pull requests there.
+Use [MergeWitness-OSS](https://github.com/lawliet8886/MergeWitness-OSS) for issues and pull requests against `main`. The MIT core, exact release candidate, website and examples are available for review. There is no npm registry release or demonstrated external adoption; the recorded Claude web proposal is distinct from model-mediated Claude Code/MCP integration.
 
 Use Node >=22 and Git. Run `node scripts/test.mjs`; new behavior must have a failing regression first. For corpus changes, also run `node scripts/run-corpus.mjs --case <id>` and then the complete corpus. Keep failures and unobservable cases in the results.
 

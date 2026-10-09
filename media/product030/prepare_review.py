@@ -102,7 +102,7 @@ def prepare(root, site, run, draft):
     narration='\n\n'.join(line.split('|')[2].strip() for line in script.splitlines() if re.match(r'\| \d\d:',line))+'\n'
     assert len(narration)<2500
     write(assets/'narration-en.txt',narration)
-    for name in ['CLAUDE_WEB_WORKFLOW.md','STARTUP_ONE_PAGE_EN.md','STARTUP_BRIEF.md','PILOT_KIT.md','VIDEO_STORYBOARD_0.3.0.md','VIDEO_SCRIPT_EN_0.3.0.md','VIDEO_SCRIPT_PT_0.3.0.md','POSITIONING.md','ANTHROPIC_APPLICATION_DRAFT.md','OPENAI_APPLICATION_DRAFT.md','evidence/PRIVATE_SITE_QA_0.3.0.md','evidence/CLAUDE_WEB_LOCAL_0.3.0.md']:
+    for name in ['CLAUDE_WEB_WORKFLOW.md','STARTUP_ONE_PAGE_EN.md','STARTUP_BRIEF.md','PILOT_KIT.md','VIDEO_STORYBOARD_0.3.0.md','VIDEO_SCRIPT_EN_0.3.0.md','VIDEO_SCRIPT_PT_0.3.0.md','POSITIONING.md','evidence/PRIVATE_SITE_QA_0.3.0.md','evidence/CLAUDE_WEB_LOCAL_0.3.0.md']:
         (dist/'downloads/release-0.3.0'/name).parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(root/'docs'/name, dist/'downloads/release-0.3.0'/name)
 
@@ -121,7 +121,7 @@ def prepare(root, site, run, draft):
 <h2>O que já está comprovado neste exemplo</h2><div class="grid"><article class="card"><strong class="pass">Proposta: passou</strong><p>Sequência, três testes comuns, preço por tenant e cache preservados.</p></article><article class="card"><strong class="pass">Repetição: passou</strong><p>Mesmo código em uma análise nova, sem gerar outra proposta.</p></article><article class="card"><strong class="fail">Sem cache: rejeitado</strong><p>O sintoma de preço desaparece, mas o requisito de cache falha.</p></article></div>
 <p><a href="claude-web-workflow.html">Ver a proposta, a origem e os limites da verificação →</a></p>
 <h2>Voz e roteiro</h2><p>Knox foi encontrado no catálogo real do Google Vids e uma amostra de 12,2 segundos foi salva. O arquivo MP4 dessa amostra ainda não foi recuperado. Nenhuma narração final foi gerada.</p>
-<p class="links"><a href="https://workspace.google.com/products/vids/">Abrir a amostra privada Knox no Vids</a><a href="{prefix}narration-en.txt">Texto limpo para narração</a><a href="downloads/release-0.3.0/VIDEO_SCRIPT_EN_0.3.0.md">Roteiro em inglês</a><a href="downloads/release-0.3.0/VIDEO_SCRIPT_PT_0.3.0.md">Tradução em português</a></p>
+<p class="links">Projeto privado de narração: link de edição omitido nesta cópia pública.<a href="{prefix}narration-en.txt">Texto limpo para narração</a><a href="downloads/release-0.3.0/VIDEO_SCRIPT_EN_0.3.0.md">Roteiro em inglês</a><a href="downloads/release-0.3.0/VIDEO_SCRIPT_PT_0.3.0.md">Tradução em português</a></p>
 <h2>Projeto, piloto e próximos critérios</h2><p>O núcleo é MIT e funciona localmente. A hipótese comercial é ajudar equipes com integração e manutenção, se aparecer demanda repetida. Ainda não há piloto externo, clientes ou receita comprovados.</p>
 <p class="links"><a href="downloads/release-0.3.0/STARTUP_ONE_PAGE_EN.md">Apresentação de uma página</a><a href="downloads/release-0.3.0/PILOT_KIT.md">Protocolo do primeiro piloto</a><a href="index.html#install">Instalação e exemplo reproduzível</a></p>
 </main>'''+foot

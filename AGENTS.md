@@ -2,7 +2,8 @@
 
 - This checkout evolves the MIT-licensed MergeWitness prototype independently. The upstream IBM competition repository at `../Concurso/MergeWitness` is read-only and must never be modified or pushed to.
 - Preserve Signal Foundry copyright, original Git history, and historical evidence. Record the upstream URL and commit in documentation.
-- Work locally only: no remote creation, push, deployment, outreach, paid API use, or account configuration changes.
+- The founder authorized public GitHub publication to `lawliet8886/MergeWitness-OSS`. This is the maintained public copy; never push the separate private preparation history or mirror all refs. Website deployment, outreach, paid API use, application submission and account configuration changes require their corresponding user instructions.
+- Keep private account correspondence, application worksheets and private document editing links outside the public tree and history. Publication sanitization preserved the full original local preparation copy and the upstream competition commit history.
 - Use newly authored fixtures or licensed, attributed public incidents. Distinguish upstream reproduction, minimized reconstruction, and synthetic controls.
 - Execute only trusted, reviewed local code. A subprocess or worktree is not a hardened security sandbox.
 - Preserve requirements from both branches with explicit immutable checks; inconclusive executions must never pass.

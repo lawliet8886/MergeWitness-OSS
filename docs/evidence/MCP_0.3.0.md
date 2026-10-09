@@ -69,7 +69,7 @@ await client.ping({ timeout: 5000 });
 
 The [MCP ping specification](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/ping) describes the optional health-check mechanism and an empty receiver response. The initial handwritten dispatcher lacked a `ping` handler. This reproduced a concrete SDK health-check gap; its effect on an actual Claude Code connection was not tested.
 
-The [ping diagnostic](../../artifacts/startup-0.3.0/mcp/ping-diagnostic-2026-10-08T11-01-36-799Z/status.json) records **`pingStatus: FAIL`**, the actual SDK exception, unchanged server hash, empty stderr and transcript. Its audit wrapper exits **0 because it confirms the expected failure**; this must not be represented as a passing ping. No fix was made by this investigation.
+The ping diagnostic (local audit artifact retained outside the public repository) records **`pingStatus: FAIL`**, the actual SDK exception, unchanged server hash, empty stderr and transcript. Its audit wrapper exits **0 because it confirms the expected failure**; this must not be represented as a passing ping. No fix was made by this investigation.
 
 The root agent subsequently implemented the empty ping response and updated source metadata to 0.3.0. A new official SDK session at **2026-10-08 11:05:52 UTC**, process exit **0**, observed:
 
@@ -83,7 +83,7 @@ The root agent subsequently implemented the empty ping response and updated sour
 | Core continuity | `fed2bef5786b920086ab39e4063ff427b96846d594666caa82b684345726da06`, equal to the initial full run |
 | Protocol transcript | Seven messages; zero protocol errors; client closed |
 
-The [final 0.3.0 SDK receipt](../../artifacts/startup-0.3.0/mcp/final-sdk-2026-10-08T11-05-52-231Z/status.json) and [hash verification](../../artifacts/startup-0.3.0/mcp/final-sdk-2026-10-08T11-05-52-231Z/verification-receipt.json) preserve this follow-up separately. Status SHA-256: `3a00fc7a5983c370598e6d1cfb29adfacab018064d758b406c9a1b774807cb93`; transcript: `a8c01db6efb7976b944e42c5f75984e4f7d3b1d5400702d655ee4865c6f01b2e`; final MCP source: `d1e626071cdfb09abd4a9ccd21e3bd6f68c7844c34024dfa4760520bfa4b6d9a`. All five stored artifact hashes were read back and verified.
+The final 0.3.0 SDK receipt (local audit artifact retained outside the public repository) and hash verification (local audit artifact retained outside the public repository) preserve this follow-up separately. Status SHA-256: `3a00fc7a5983c370598e6d1cfb29adfacab018064d758b406c9a1b774807cb93`; transcript: `a8c01db6efb7976b944e42c5f75984e4f7d3b1d5400702d655ee4865c6f01b2e`; final MCP source: `d1e626071cdfb09abd4a9ccd21e3bd6f68c7844c34024dfa4760520bfa4b6d9a`. All five stored artifact hashes were read back and verified.
 
 **The full prepare/evaluate/verifyRepair/dispose fixture was observed on 0.2.1; only initialize/listTools/ping and source metadata were freshly checked on 0.3.0.** No Git or repository/test execution, Claude commands or paid API calls occur in the final follow-up. The original receipts and failure diagnosis remain unchanged.
 
@@ -103,13 +103,13 @@ node artifacts/startup-0.3.0/mcp/sdk-client/final-sdk-check.mjs
 
 The install resolved SDK 1.32.1 and preserves its exact registry integrity and transitive versions in the isolated lockfile. The `commands.jsonl` ledger records 31 harness Git commands, including one expected `git log` failure before the first synthetic commit existed; later commands succeed. Internal core behavior is bound by the captured core source hash, tool arguments, state and reports; the harness ledger is not a system-wide subprocess trace.
 
-Main run directory: [run-2026-10-08T10-54-33-611Z](../../artifacts/startup-0.3.0/mcp/run-2026-10-08T10-54-33-611Z/).
+Main run directory: run-2026-10-08T10-54-33-611Z (local audit artifact retained outside the public repository).
 
-- [Status and hash ledger](../../artifacts/startup-0.3.0/mcp/run-2026-10-08T10-54-33-611Z/status.json)
-- [Independent receipt verification](../../artifacts/startup-0.3.0/mcp/run-2026-10-08T10-54-33-611Z/verification-receipt.json)
-- [Fixture provenance](../../artifacts/startup-0.3.0/mcp/run-2026-10-08T10-54-33-611Z/receipts/fixture-origin.json), [source hashes before](../../artifacts/startup-0.3.0/mcp/run-2026-10-08T10-54-33-611Z/receipts/checkout-sources-before.json), [source hashes after](../../artifacts/startup-0.3.0/mcp/run-2026-10-08T10-54-33-611Z/receipts/checkout-sources-after.json)
-- [Core v2 evaluation](../../artifacts/startup-0.3.0/mcp/run-2026-10-08T10-54-33-611Z/receipts/evaluation-report.json), [repaired candidate verification](../../artifacts/startup-0.3.0/mcp/run-2026-10-08T10-54-33-611Z/receipts/repair-repaired-report.json)
-- [Setup receipt](../../artifacts/startup-0.3.0/mcp/setup-receipt.json), [main output](../../artifacts/startup-0.3.0/mcp/sdk-check.log), [official documentation notes](../../artifacts/startup-0.3.0/mcp/docs-source-notes.json)
+- Status and hash ledger (local audit artifact retained outside the public repository)
+- Independent receipt verification (local audit artifact retained outside the public repository)
+- Fixture provenance (local audit artifact retained outside the public repository), source hashes before (local audit artifact retained outside the public repository), source hashes after (local audit artifact retained outside the public repository)
+- Core v2 evaluation (local audit artifact retained outside the public repository), repaired candidate verification (local audit artifact retained outside the public repository)
+- Setup receipt (local audit artifact retained outside the public repository), main output (local audit artifact retained outside the public repository), official documentation notes (local audit artifact retained outside the public repository)
 
 Selected SHA-256 values; all other receipt hashes are in the ledger:
 

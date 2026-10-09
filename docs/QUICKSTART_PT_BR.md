@@ -1,14 +1,17 @@
 # Instalar e reproduzir o MergeWitness
 
-Requisitos: Node.js 22 ou superior, npm e Git no PATH. A versão 0.3.0 é um pacote **local**; ainda não existe publicação npm nem um novo repositório remoto mantido. O núcleo não precisa de chave de API nem de dependências npm em tempo de execução.
+Requisitos: Node.js 22 ou superior, npm e Git no PATH. Baixe `mergewitness-core-0.3.0.tgz` e `SHA256SUMS` na [release candidata do GitHub](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.0). O arquivo aceito tem 40515 bytes e SHA-256 `848a0f35f05604a561215da34e03ba359d14f256f69ed4196fcf1b62dd3dd688`. Não há publicação no registro npm. O núcleo não precisa de chave de API nem de dependências npm em tempo de execução.
 
-Na cópia do código, gere o pacote:
+Para gerar seu próprio pacote, clone o código e crie a pasta de saída antes:
 
 ```sh
+git clone https://github.com/lawliet8886/MergeWitness-OSS.git
+cd MergeWitness-OSS
+node -e "require('node:fs').mkdirSync('artifacts',{recursive:true})"
 npm pack --ignore-scripts --pack-destination ./artifacts
 ```
 
-Copie `mergewitness-core-0.3.0.tgz` e o `SHA256SUMS` correspondente para uma pasta separada. Compare o SHA-256 antes de instalar. No PowerShell:
+Copie o pacote escolhido para uma pasta separada. No download oficial, compare o hash com o `SHA256SUMS` da release. Ao gerar outro pacote pelo código, calcule e guarde o hash desse novo arquivo: as atualizações de documentação podem mudar seus bytes, sem alterar o núcleo. Não atribua o checksum oficial a um arquivo reconstruído. No PowerShell:
 
 ```powershell
 Get-FileHash ./mergewitness-core-0.3.0.tgz -Algorithm SHA256

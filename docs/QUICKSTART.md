@@ -2,13 +2,18 @@
 
 Prerequisites: Node.js 22 or newer, npm, and Git on PATH. The core has no npm runtime dependencies and the demonstration needs no API key.
 
-The current version is a **local tarball**, not a published npm release. In this checkout:
+Download `mergewitness-core-0.3.0.tgz` and `SHA256SUMS` from the [GitHub release candidate](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.0). The accepted archive is 40515 bytes, SHA-256 `848a0f35f05604a561215da34e03ba359d14f256f69ed4196fcf1b62dd3dd688`. There is no npm registry release.
+
+To build your own tarball instead, clone the source and create its ignored output directory first:
 
 ```sh
+git clone https://github.com/lawliet8886/MergeWitness-OSS.git
+cd MergeWitness-OSS
+node -e "require('node:fs').mkdirSync('artifacts',{recursive:true})"
 npm pack --ignore-scripts --pack-destination ./artifacts
 ```
 
-Copy `mergewitness-core-0.3.0.tgz` into a separate working directory. Verify its SHA-256 against the accompanying SHA256SUMS before installation. Install without network requests or install hooks:
+Copy the tarball into a separate working directory. Verify the downloaded release against its accompanying SHA256SUMS before installation. A source rebuild can have a different hash because documentation changed after candidate acceptance; compute and retain that build's own hash instead of borrowing the official release checksum. Install without network requests or install hooks:
 
 ```sh
 npm install --offline --ignore-scripts --no-audit --no-fund --prefix ./mw-tools ./mergewitness-core-0.3.0.tgz
@@ -47,6 +52,8 @@ Open the returned `reportPath` in a browser. It shows **Interaction witness foun
 An evaluation alone may omit `--repair`; the view explicitly says a correction was not provided. Only the supported core/portable v2 report objects are accepted. Mismatched pairs, old formats and contradictory passing claims are rejected. Keep portable evaluation bytes unchanged so their exact digest still matches the repair. See [REPORTS.md](REPORTS.md) and the executable PowerShell sequence in the [Portuguese guide](QUICKSTART_PT_BR.md).
 
 ## Run directly from source
+
+Use the cloned repository directory, not an installed package directory:
 
 ```sh
 node src/cli/mergewitness.mjs demo tenant-cache --out ./artifacts/demo

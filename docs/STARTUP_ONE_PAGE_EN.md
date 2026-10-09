@@ -10,7 +10,7 @@ Changes can pass their ordinary tests separately and together, while a particula
 
 ## What exists
 
-The 0.3.0 local release candidate provides a CLI, a four-operation stdio MCP interface, version 2 JSON evidence and an offline HTML reader. The exact accepted tarball is available through [mergewitness.com.br](https://mergewitness.com.br/), together with installation instructions, recorded reports and a two-minute product film. There is no public npm release or independent public GitHub repository yet. Internal technical checks do not establish customer adoption or universal repair guarantees.
+The 0.3.0 release candidate provides a CLI, a four-operation stdio MCP interface, version 2 JSON evidence and an offline HTML reader. [Source and releases](https://github.com/lawliet8886/MergeWitness-OSS) accompany [mergewitness.com.br](https://mergewitness.com.br/), installation instructions, recorded reports and a two-minute product film. There is no npm registry release. Internal technical checks do not establish customer adoption or universal repair guarantees.
 
 The reproducible tenant-pricing/cache example is synthetic. Its supplied demo repair is identified as supplied. A separate user-forwarded Claude proposal was checked locally. Public incident replays are known cases, not a blind benchmark. [QuietClash](https://github.com/arbade/quietclash) and [mumei](https://github.com/iroha924/mumei) overlap with this direction; originality and superiority are not established.
 

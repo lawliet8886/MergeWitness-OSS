@@ -1,12 +1,11 @@
-name: Local validation recipe
+name: Validation
 
 # Hosting and publication are deliberately separate from this repository.
-# Prepared locally; these triggers run only after a remote/push is authorized.
+# Validate the independently maintained main branch and contributions.
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    tags: ['v*']
   pull_request:
     branches: [main]
 

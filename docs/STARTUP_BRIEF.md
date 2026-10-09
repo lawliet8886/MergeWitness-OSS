@@ -47,10 +47,12 @@ As metas de aprendizagem são três de cinco reproduções sem ajuda em cerca de
 
 ## Próximas decisões
 
-O [site do domínio](https://mergewitness.com.br/?lang=pt) foi atualizado após autorização do fundador. O pacote aceito, as instruções, os relatórios e o filme aprovado estão públicos; a origem no concurso foi preservada no histórico. A [publicação está registrada](evidence/PUBLIC_SITE_RELEASE_0.3.0.md). O repositório independente ainda está local, sem remoto configurado ou publicação no npm.
+O [site do domínio](https://mergewitness.com.br/?lang=pt) foi atualizado após autorização do fundador. O pacote aceito, as instruções, os relatórios e o filme aprovado estão públicos; a origem no concurso foi preservada no histórico. A [publicação do site está registrada](evidence/PUBLIC_SITE_RELEASE_0.3.0.md). O fundador autorizou também o [repositório independente e sua release](https://github.com/lawliet8886/MergeWitness-OSS). Não há publicação no registro npm.
 
-Os próximos passos são publicar o repositório independente após a instrução correspondente e executar o protocolo externo após autorização de contato e consentimento dos participantes. A decisão comercial deve usar o problema anterior, o trabalho necessário, o benefício observado e o retorno da equipe; não apenas elogios ou instalação concluída.
+O próximo passo é executar o protocolo externo após autorização de contato e consentimento dos participantes. A decisão comercial deve usar o problema anterior, o trabalho necessário, o benefício observado e o retorno da equipe; não apenas elogios ou instalação concluída.
 
 A candidatura à Anthropic será preparada para avaliação **depois de um piloto real**, conforme a decisão do fundador. Isso é nosso gate de evidência. A aprovação continua discricionária e considera, entre outros fatores, tração, financiamento e integração/uso de Claude. [Termos oficiais](https://www.anthropic.com/startup-program-official-terms).
 
-O [rascunho Anthropic](ANTHROPIC_APPLICATION_DRAFT.md) permanece sem envio. A candidatura OpenAI mantém seu gate separado no [documento existente](OPENAI_APPLICATION_DRAFT.md). Apoio de provedor é opcional; este ciclo não depende de aprovação, crédito ou nova assinatura.
+Conferência em 09/10/2026: a [página oficial do Claude Startups](https://claude.com/programs/startups) informa que as ofertas de Team e US$ 1.000 em créditos estão acima da capacidade e que as inscrições serão reavaliadas. Ela continua permitindo startups sem investimento de VC. Não tratamos os benefícios anteriores como disponíveis agora.
+
+Os materiais de candidatura Anthropic/OpenAI e anotações de conta permanecem privados e sem novo envio. Apoio de provedor é opcional; este ciclo não depende de aprovação, crédito ou nova assinatura.

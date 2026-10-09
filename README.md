@@ -2,31 +2,35 @@
 
 Replay a sequence of operations, compare its observed behavior across trusted Git revisions, and verify a candidate repair against frozen checks for both changes.
 
-This is an independent local evolution of the MIT-licensed IBM Bob prototype. The original [competition repository](https://github.com/lawliet8886/MergeWitness/tree/5b649c4bdf4a9372c9f890816835c100b5be0d01) is preserved. The project keeps its initial name and Signal Foundry attribution; provider support is optional.
+This is an independent open source evolution of the MIT-licensed IBM Bob prototype. The original [competition repository](https://github.com/lawliet8886/MergeWitness/tree/5b649c4bdf4a9372c9f890816835c100b5be0d01) is preserved. The project keeps its initial name and Signal Foundry attribution; provider support is optional.
+
+[Website and two-minute film](https://mergewitness.com.br/?lang=en) · [Guia em português](docs/QUICKSTART_PT_BR.md) · [0.3.0 release candidate](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.0) · [Report a reproducible case](https://github.com/lawliet8886/MergeWitness-OSS/issues/new/choose)
 
 ## Try the local version
 
 Node >=22 and Git are required. No API key or runtime npm dependency is needed.
 
 ```sh
+git clone https://github.com/lawliet8886/MergeWitness-OSS.git
+cd MergeWitness-OSS
 node src/cli/mergewitness.mjs demo tenant-cache --out ./artifacts/demo
 ```
 
 The same frozen probe passes in Base/A/B, fails in their clean combination, and passes after the retained repair. Independent pricing and externally observed cache checks must still pass. Each run writes distinct portable JSON and cleans its private clone.
 
-For installation from the locally generated v0.3.0 tarball, use the [English quickstart](docs/QUICKSTART.md) or [guia em português](docs/QUICKSTART_PT_BR.md). A public npm release and maintained remote have not been published. The package remains private to prevent accidental npm publication.
+To install the accepted v0.3.0 tarball, download it and `SHA256SUMS` from the [GitHub release](https://github.com/lawliet8886/MergeWitness-OSS/releases/tag/v0.3.0), then follow the [English quickstart](docs/QUICKSTART.md) or [guia em português](docs/QUICKSTART_PT_BR.md). The package's `private:true` prevents accidental npm publication; the source is public and MIT-licensed. There is no npm registry release.
 
 Turn the returned demo's `evaluation.public.json` and `repair.public.json` into a readable offline view:
 
 ```sh
-node src/cli/mergewitness.mjs report evaluation.public.json --repair repair.public.json --out ./artifacts/reports
+node src/cli/mergewitness.mjs report "<demo-outputDir>/evaluation.public.json" --repair "<demo-outputDir>/repair.public.json" --out ./artifacts/reports
 ```
 
-Use the files inside the demo's returned `outputDir`. The HTML shows recorded observations, declared requirements and correction outcomes; it executes no repository code and needs no server. [Report inputs and limits](docs/REPORTS.md) explain identity binding, inconclusive results and safe sharing.
+Replace `<demo-outputDir>` with the demo's actual returned `outputDir`. The HTML shows recorded observations, declared requirements and correction outcomes; it executes no repository code and needs no server. [Report inputs and limits](docs/REPORTS.md) explain identity binding, inconclusive results and safe sharing.
 
 ## What works and what remains unvalidated
 
-The Node core, JSON CLI and stdio MCP stages operate on trusted local repositories. Version 2 records explicit A/B requirements, declared dependency manifests, execution failures and attempt-specific reports. Read the [API contract](docs/API.md), [0.3.0 validation receipt](docs/evidence/VALIDATION_0.3.0.md) and preserved [0.2.1 baseline](docs/evidence/VALIDATION_0.2.1.md) for exact commands, outcomes and remaining gates. The scoped [MCP client check](docs/evidence/MCP_0.3.0.md) is separate from an actual Claude/model-assisted workflow, which has not been run.
+The Node core, JSON CLI and stdio MCP stages operate on trusted local repositories. Version 2 records explicit A/B requirements, declared dependency manifests, execution failures and attempt-specific reports. Read the [API contract](docs/API.md), [0.3.0 validation receipt](docs/evidence/VALIDATION_0.3.0.md) and preserved [0.2.1 baseline](docs/evidence/VALIDATION_0.2.1.md) for exact commands, outcomes and remaining gates. A [user-forwarded free Claude web proposal](https://mergewitness.com.br/claude-web-workflow.html) passed its recorded local checks and a fresh replay in the synthetic case. The [MCP client check](docs/evidence/MCP_0.3.0.md) remains separate from an unverified model-mediated Claude Code/MCP integration. Provider UI/model identity were not independently captured.
 
 ```sh
 node scripts/test.mjs
@@ -41,13 +45,13 @@ Checks are supplied by the caller. A pass covers those observations and declared
 
 ## Contribute and inspect history
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Reproducible cases, retention checks and installation failures are useful first contributions when a public remote becomes available. No outreach has been sent.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Reproducible cases, retention checks and installation failures are useful first contributions through [issues](https://github.com/lawliet8886/MergeWitness-OSS/issues) and pull requests against `main`. Hosted checks run on Linux/Windows with Node 22/24; consult the [actual Actions results](https://github.com/lawliet8886/MergeWitness-OSS/actions) before assuming a run passed.
 
-The [external-validation protocol](docs/EXTERNAL_VALIDATION.md), [free first-pilot kit](docs/PILOT_KIT.md), [startup brief](docs/STARTUP_BRIEF.md) and [release handoff](docs/RELEASE_CHECKLIST.md) are prepared locally. The first integration pilot is limited to one trusted Node repository, one case and up to two sessions. Public distribution, external sessions and any support-program application still require the stated later gates; preparation is not adoption or submission. External installations/cases/returns remain zero.
+The [external-validation protocol](docs/EXTERNAL_VALIDATION.md), [free first-pilot kit](docs/PILOT_KIT.md), [startup brief](docs/STARTUP_BRIEF.md) and [release handoff](docs/RELEASE_CHECKLIST.md) describe the next evidence gates. The first integration pilot is limited to one trusted Node repository, one case and up to two sessions. External sessions require consent; application submission requires a separate instruction. External installations/cases/returns remain unobserved.
 
 The unchanged `reports/`, `bob_sessions/`, `web/`, media and submission artifacts document the original competition prototype. New runs write to `artifacts/` or an explicitly selected output directory and do not overwrite those historical reports. The browser laboratory remains a historical replay, separate from current Node verification.
 
-The domain [mergewitness.com.br](https://mergewitness.com.br) is intended for this OSS evolution. A local site update is prepared from the existing Site source but has not been published; its currently live content is not proof of this local version's distribution.
+The live [mergewitness.com.br](https://mergewitness.com.br) presents the independent project, approved product film, exact package download and recorded examples, with the competition presentation preserved as history. No provider sponsorship, customer adoption or support-program acceptance is claimed.
 
 ## License and origin
 
