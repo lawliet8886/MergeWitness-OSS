@@ -33,6 +33,7 @@ const commit = (directory, message) => {
 const analyses = [];
 const retained = [];
 const resultRows = [];
+const cleanup = [];
 let generated;
 let tenant;
 
@@ -116,6 +117,7 @@ function controlContext(entry) {
 }
 
 function publicContext(entry) {
+  if (entry.id === 'public-fastq-drain-waiters') return publicDrainContext(entry);
   if (entry.library) return publicLibraryContext(entry);
   const directory = join(runRoot, entry.id);
   mkdirSync(directory);
@@ -140,6 +142,78 @@ function publicContext(entry) {
   const fixedFiles={ 'src/dataloader.cjs': readFileSync(join(root, 'fixtures/cases/vendor/dataloader-2.0.0/index.cjs')), 'LICENSE.dataloader': readFileSync(join(root, 'fixtures/cases/vendor/dataloader-2.0.0/LICENSE')) };
   const verification = repaired(context, 'after', fixedFiles, fixedFiles);
   return { context, verification };
+}
+
+function assertDrainOrdinary(results) {
+  for (const result of Object.values(results)) {
+    if (result.exitCode !== 0 || result.signal || result.error ||
+        !result.stdout.includes('ordinary queue callback and configured context') ||
+        !result.stdout.includes('ordinary promise queue values and errors') ||
+        !/(?:#|ℹ) pass 2(?:\s|$)/.test(result.stdout)) throw new Error('Ordinary drain-case tests did not execute and pass.');
+  }
+}
+
+function publicDrainContext(entry) {
+  const fixtures = join(root, 'fixtures/cases');
+  const admission = JSON.parse(readFileSync(join(fixtures, 'fastq-drain-admission.json'), 'utf8'));
+  for (const source of admission.sources) {
+    if (hash(join(root, source.path)) !== source.sha256) throw new Error(`Drain admission hash mismatch: ${source.path}`);
+  }
+  const directory = join(runRoot, entry.id);
+  mkdirSync(directory);
+  git(directory, 'init', '-b', 'before');
+  put(directory, '.gitattributes', '* -text\n');
+  put(directory, 'package.json', '{"type":"module"}\n');
+  const oldFiles = {
+    'src/library.cjs': readFileSync(join(fixtures, 'vendor/fastq-1.17.0/index.cjs')),
+    'LICENSE.library': readFileSync(join(fixtures, 'vendor/fastq-1.17.0/LICENSE')),
+  };
+  for (const name of ['reusify.js', 'package.json', 'LICENSE']) oldFiles[`src/node_modules/reusify/${name}`] = readFileSync(join(fixtures, 'vendor/reusify-1.0.4', name));
+  for (const [name, bytes] of Object.entries(oldFiles)) put(directory, name, bytes);
+  put(directory, 'test/library.test.mjs', readFileSync(join(fixtures, 'fastq-drain-ordinary.mjs')));
+  commit(directory, 'Unchanged fastq 1.17.0 bytes in bounded concurrent-wait harness');
+  const checks = join(runRoot, 'checks', entry.id);
+  const dependencies = ['fastq-drain-check.mjs', 'fastq-drain-burst.cjs', 'fastq-drain-retention.cjs', 'fastq-drain-expected.json'].map(name =>
+    put(checks, name, readFileSync(join(fixtures, name))));
+  const check = mode => put(checks, `${mode}.mjs`, `import {observe} from './fastq-drain-check.mjs'; const {diagnostic,...stable}=observe('${mode}'); console.error(JSON.stringify(diagnostic)); console.log(JSON.stringify(stable));\n`);
+  const probe = check('incident'), a = check('retentionA'), b = check('retentionB');
+  const direct = (name, cwd) => {
+    const runs = {};
+    for (const [mode, path] of [['incident',probe],['retentionA',a],['retentionB',b]]) {
+      runs[mode] = Array.from({length:repetitions}, () => {
+        const result = spawnSync(process.execPath, [path], {cwd, encoding:'utf8', shell:false, timeout:10_000});
+        if (result.error || result.signal || result.status !== 0) return {status:'inconclusive',diagnostic:result.error?.message??result.stderr};
+        let stable;
+        try { stable=JSON.parse(result.stdout); } catch { stable={status:'inconclusive'}; }
+        return {...stable,diagnostic:result.stderr};
+      });
+    }
+    return {name,runs};
+  };
+  const directOld = direct('old', directory);
+  const context = analyze(directory, ['before','before','before'], probe, [
+    {id:'active-queued-later-idle-drain',origin:'branchA',checkPath:a,dependencies},
+    {id:'fifo-concurrency-result-error-context',origin:'branchB',checkPath:b,dependencies},
+  ], dependencies, repetitions, oldFiles);
+  context.drainCase = true;
+  assertDrainOrdinary(context.prepared.normalTests);
+  const fixedFiles = {'src/library.cjs':readFileSync(join(fixtures, 'vendor/fastq-pr87-9ca2ef17/index.cjs')),
+    'LICENSE.library':readFileSync(join(fixtures, 'vendor/fastq-pr87-9ca2ef17/LICENSE'))};
+  const verification = repaired(context, 'pinned-pr87', fixedFiles, {...oldFiles,...fixedFiles});
+  assertDrainOrdinary({candidate:verification.normalTests});
+  const positiveIntegrity = context.sourceIntegrity;
+  const directPositive = direct('pinned-pr87', verification.candidatePath);
+  const falseFiles = {'src/library.cjs':readFileSync(join(fixtures, 'fastq-drain-immediate.cjs'))};
+  const falseVerification = repaired(context, 'immediate-wait-false', falseFiles, {...oldFiles,...falseFiles});
+  assertDrainOrdinary({candidate:falseVerification.normalTests});
+  const falseIntegrity = context.sourceIntegrity.candidate;
+  context.sourceIntegrity = positiveIntegrity;
+  context.falseVerification = falseVerification;
+  context.directChecks = [directOld,directPositive,direct('immediate-wait-false',falseVerification.candidatePath)];
+  context.falseIntegrity = falseIntegrity;
+  context.directMatched = context.directChecks.every(({name,runs}) => Object.entries(runs).every(([mode,observations]) =>
+    observations.every(run => run.status === (mode==='incident'&&name==='old'||mode==='retentionA'&&name==='immediate-wait-false'?'fail':'pass'))));
+  return {context,verification};
 }
 
 function publicLibraryContext(entry) {
@@ -215,19 +289,35 @@ try {
     }
     const classification = context.evaluated.classification;
     const repairPassed = verification?.passed ?? null;
-    const matched = classification === entry.label && (entry.expectedRepair == null || repairPassed === entry.expectedRepair);
+    const falseCandidateRejected = context.falseVerification ? !context.falseVerification.passed &&
+      context.falseVerification.probe.kind === 'pass' &&
+      context.falseVerification.requirementResults.find(check=>check.origin==='branchA')?.result.kind === 'fail' &&
+      context.falseVerification.requirementResults.find(check=>check.origin==='branchB')?.result.kind === 'pass' : null;
+    const matched = classification === entry.label && (entry.expectedRepair == null || repairPassed === entry.expectedRepair) &&
+      (!context.drainCase || (falseCandidateRejected && context.directMatched));
     const row = { caseId:entry.id,provenance:entry.provenance,heldOut:entry.heldOut??false,classification,expectedClassification:entry.label,repairPassed,expectedRepair:entry.expectedRepair??null,retentionVerified:verification?.retentionVerified??false,matched,durationMs:Math.round(performance.now()-start),matrix:Object.fromEntries(Object.entries(context.evaluated.matrix).map(([key,value])=>[key,value.kind])),observedRepetitions:Object.fromEntries(Object.entries(context.evaluated.matrix).map(([key,value])=>[key,value.runs.length])),sourceIntegrity:context.sourceIntegrity };
     resultRows.push(row);
+    if(context.drainCase) Object.assign(row,{falseCandidateRejected,falseCandidateIntegrity:context.falseIntegrity,directChecks:context.directChecks});
     // Durable copied reports remain after disposing the private analysis.
     const evidenceDir = join(runRoot,'evidence',entry.id); mkdirSync(evidenceDir,{recursive:true});
     copyFileSync(context.evaluated.reportPath,join(evidenceDir,'evaluation.private.json'));
     if(verification) copyFileSync(verification.reportPath,join(evidenceDir,'repair.private.json'));
+    if(context.falseVerification) copyFileSync(context.falseVerification.reportPath,join(evidenceDir,'false-repair.private.json'));
+    if(context.drainCase) {
+      writeFileSync(join(evidenceDir,'direct-checks.json'),JSON.stringify(context.directChecks,null,2)+'\n');
+      const paths=['evaluation.private.json','repair.private.json','false-repair.private.json','direct-checks.json'].map(name=>join(evidenceDir,name));
+      cleanup.push({analysisId:context.prepared.analysisId,statePath:context.prepared.statePath,reports:paths.map(path=>({path,sha256:hash(path)}))});
+    }
     retained.push({caseId:entry.id,probeHash:context.evaluated.probeHash});
   }
 } finally {
   for (const analysis of analyses) dispose({analysisId:analysis.analysisId,statePath:analysis.statePath});
+  for (const receipt of cleanup) {
+    receipt.disposed = !existsSync(receipt.statePath) && receipt.reports.every(report=>existsSync(report.path)&&hash(report.path)===report.sha256);
+    if(!receipt.disposed) throw new Error('Drain analysis disposal or retained report integrity failed.');
+  }
 }
-const summary = { version:2,generatedAt:new Date().toISOString(),runtime:{node:process.version,platform:process.platform},passed:resultRows.every(entry=>entry.matched),corpusSha256:hash(join(root,'fixtures/cases/manifest.json')),cases:resultRows,retained,limitation:manifest.scope,reportPath:join(runRoot,'summary.json') };
+const summary = { version:2,generatedAt:new Date().toISOString(),runtime:{node:process.version,platform:process.platform},passed:resultRows.every(entry=>entry.matched),corpusSha256:hash(join(root,'fixtures/cases/manifest.json')),cases:resultRows,retained,cleanup,limitation:manifest.scope,reportPath:join(runRoot,'summary.json') };
 writeFileSync(summary.reportPath,JSON.stringify(summary,null,2)+'\n');
 process.stdout.write(JSON.stringify(summary,null,2)+'\n');
 process.exitCode = summary.passed ? 0 : 1;

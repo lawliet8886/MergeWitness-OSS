@@ -61,7 +61,7 @@ node scripts/test.mjs
 node scripts/run-corpus.mjs
 ```
 
-The source corpus contains eight synthetic cases and four known public incident replays (DataLoader, lru-cache, fastq), with pinned modules and retained licenses. Those public cases are known-regression replay in a minimal harness, not evidence of a clean upstream merge failure. See `fixtures/cases/PROVENANCE.md`. The installed demo stays small; the full corpus is run from the source checkout.
+The source corpus contains thirteen entries: eight synthetic cases, four known published-module incident replays (DataLoader, lru-cache, fastq), and one minimized concurrent fastq drain-wait variant with a published old module and pinned unmerged/unreleased PR source candidate. That entry also rejects an immediate-wait false repair. Modules and licenses remain pinned. These are local minimal-harness replays, not evidence of a clean upstream merge failure or a released fix for the new variant. See `fixtures/cases/PROVENANCE.md`. The installed demo stays small; the full corpus is run from the source checkout.
 
 ## Installation problems
 

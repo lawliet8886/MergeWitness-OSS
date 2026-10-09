@@ -47,7 +47,7 @@ node scripts/test.mjs
 node scripts/run-corpus.mjs
 ```
 
-O corpus do código tem oito cenários sintéticos e quatro regressões públicas conhecidas, com versões e licenças preservadas. Os casos públicos são replays em um harness mínimo, não merges upstream nem prova de taxa geral de detecção.
+O corpus do código tem treze entradas: oito cenários sintéticos, quatro replays de módulos publicados e uma variante minimizada de esperas concorrentes por drain no fastq. A nova entrada usa o módulo antigo publicado e o código fixado de um PR aberto, sem merge nem release; também rejeita uma tentativa falsa que resolve a espera imediatamente. Versões e licenças são preservadas. São replays locais em um harness mínimo, sem prova de taxa geral de detecção ou de merge upstream.
 
 Para um repositório Node próprio, leia [API.md](API.md): `prepare`, `evaluate`, `verify-repair` e `dispose` usam JSON e estado explícito. O único runner suportado é `node --test`. Revise e execute somente código confiável; subprocessos e clones não constituem um sandbox resistente a código malicioso.
 

@@ -41,7 +41,7 @@ node scripts/test.mjs
 node scripts/run-corpus.mjs
 ```
 
-The twelve-case corpus includes compatible/refactor/unobservable controls, feature-removing false repairs, the two original synthetic failures and four pinned public sequence incidents from DataLoader, lru-cache and fastq. [Provenance](fixtures/cases/PROVENANCE.md) distinguishes unchanged published-module replay in a minimal harness from an upstream merge. These cases do not establish general detection efficacy or adoption.
+The thirteen-case source corpus includes eight synthetic cases, four pinned published-module incident replays from DataLoader, lru-cache and fastq, and one minimized fastq concurrent-drain-wait variant. That last entry tests both an unchanged pinned open, unmerged/unreleased PR candidate and an immediate-wait false repair; it is not a published fixed fastq release. [Provenance](fixtures/cases/PROVENANCE.md) distinguishes unchanged published-module replay in a minimal harness from an upstream merge. These cases do not establish general detection efficacy or adoption.
 
 Checks are supplied by the caller. A pass covers those observations and declared inputs. It does not certify every behavior, infer complete feature requirements, freeze undeclared environment dependencies or make arbitrary external code safe. A subprocess/worktree/browser worker is not a hardened sandbox. Only `node --test` is supported.
 
@@ -61,4 +61,4 @@ The live [mergewitness.com.br](https://mergewitness.com.br) presents the indepen
 
 Project software is MIT, copyright © 2026 Signal Foundry; keep the [LICENSE](LICENSE). Upstream commit: `5b649c4bdf4a9372c9f890816835c100b5be0d01`. Original authored probes and retained repair are preserved with their evidence and attribution.
 
-The public corpus vendors unchanged DataLoader 1.4.0 (BSD-3-Clause) and 2.0.0 (MIT), lru-cache 7.4.0/7.4.1 (ISC), fastq 1.16.0/1.17.0 (ISC) and reusify 1.0.4 (MIT), with original notices beside the files. Their licenses are not replaced by the root MIT license. They are not runtime dependencies of the installed core package.
+The public corpus vendors unchanged DataLoader 1.4.0 (BSD-3-Clause) and 2.0.0 (MIT), lru-cache 7.4.0/7.4.1 (ISC), fastq 1.16.0/1.17.0 (ISC) and reusify 1.0.4 (MIT), plus the unchanged pinned fastq PR #87 source (ISC), with original notices beside the files. The PR is unmerged and unreleased. Their licenses are not replaced by the root MIT license. They are not runtime dependencies of the installed core package.

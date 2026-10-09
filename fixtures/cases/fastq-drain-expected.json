@@ -1,0 +1,89 @@
+{
+  "id": "fastq-86-concurrent-drain-waiters",
+  "schema": "mergewitness-bounded-queue-oracle-v1",
+  "count": 14000,
+  "intended": {
+    "outcome": "completed",
+    "count": 14000,
+    "settled": 14000,
+    "drainCalls": 1,
+    "workSettled": true,
+    "idle": true,
+    "value": "held"
+  },
+  "expectedOld": {
+    "outcome": "queue-drain-error",
+    "count": 14000,
+    "settled": 0,
+    "drainCalls": 0,
+    "workSettled": true,
+    "idle": true,
+    "errorName": "RangeError"
+  },
+  "retentionA": {
+    "before": {
+      "settled": 0,
+      "drainCalls": 0,
+      "running": 1,
+      "queued": [
+        "B"
+      ],
+      "idle": false
+    },
+    "middle": {
+      "settled": 0,
+      "drainCalls": 0,
+      "running": 1,
+      "queued": [],
+      "idle": false
+    },
+    "after": {
+      "settled": 2,
+      "drainCalls": 1,
+      "running": 0,
+      "queued": [],
+      "idle": true
+    },
+    "laterBefore": {
+      "laterSettled": false,
+      "drainCalls": 1
+    },
+    "laterAfter": {
+      "laterSettled": true,
+      "drainCalls": 2
+    },
+    "idleWait": {
+      "noHook": true,
+      "idle": true
+    }
+  },
+  "retentionB": {
+    "started": [
+      "A",
+      "B",
+      "C"
+    ],
+    "values": [
+      "A-result",
+      "B-result",
+      "C-result"
+    ],
+    "maxRunning": 1,
+    "workerContexts": [
+      true,
+      true,
+      true
+    ],
+    "ok": "ok",
+    "errorMessage": "planned-failure",
+    "errors": [
+      [
+        "planned-failure",
+        "failure"
+      ]
+    ],
+    "errorIdle": true
+  },
+  "knowledge": "Root observed old burst and both retention runs and preliminary PR executions before this formal integration. No blind or held-out claim.",
+  "limits": "Minimized concurrent-wait variant; original sequential 14000-cycle reproduction remains inconclusive. Unknown terminations never establish pass/fail."
+}

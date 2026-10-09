@@ -1,0 +1,52 @@
+'use strict';
+const { resolve } = require('node:path');
+const build = require(resolve(process.argv[2]));
+const turn = () => new Promise(done => setImmediate(done));
+const timer = setTimeout(() => { console.log(JSON.stringify({outcome:'inconclusive',reason:'retention deadline'})); process.exit(2); }, 3000);
+(async () => {
+  const context = { marker:'retained-context' };
+  const started = [], workerContexts = [], releases = new Map();
+  let maxRunning = 0, drainCalls = 0, settled = 0;
+  const queue = build.promise(context, function (value) {
+    started.push(value); workerContexts.push(this === context);
+    return new Promise(done => { releases.set(value, () => done(value + '-result')); });
+  }, 1);
+  queue.drain = () => { drainCalls++; };
+  const first = queue.push('A');
+  const second = queue.push('B');
+  maxRunning = Math.max(maxRunning,queue.running());
+  const waits = [queue.drained().then(()=>settled++),queue.drained().then(()=>settled++)];
+  await turn();
+  const before = {settled,drainCalls,running:queue.running(),queued:queue.getQueue(),idle:queue.idle()};
+  releases.get('A')();
+  const a = await first;
+  await turn();
+  maxRunning = Math.max(maxRunning,queue.running());
+  const middle = {settled,drainCalls,running:queue.running(),queued:queue.getQueue(),idle:queue.idle()};
+  releases.get('B')();
+  const b = await second;
+  await Promise.all(waits);
+  const after = {settled,drainCalls,running:queue.running(),queued:queue.getQueue(),idle:queue.idle()};
+  let laterSettled = false;
+  const laterWork = queue.push('C');
+  const laterWait = queue.drained().then(()=> {laterSettled=true;});
+  await turn();
+  const laterBefore = {laterSettled,drainCalls};
+  releases.get('C')();
+  const c = await laterWork;
+  await laterWait;
+  const laterAfter = {laterSettled,drainCalls};
+  const idleDrainsBefore = drainCalls;
+  await queue.drained();
+  const idleWait = {noHook:drainCalls===idleDrainsBefore,idle:queue.idle()};
+  const errors = [];
+  const errorQueue = build.promise(async value => { if(value==='failure')throw new Error('planned-failure');return value; },1);
+  errorQueue.error((error,value)=> {if(error)errors.push([error.message,value]);});
+  const ok = await errorQueue.push('ok');
+  let errorMessage;
+  try {await errorQueue.push('failure');}catch(error){errorMessage=error.message;}
+  await errorQueue.drained();
+  clearTimeout(timer);
+  console.log(JSON.stringify({outcome:'completed',before,middle,after,laterBefore,laterAfter,idleWait,
+    queueContract:{started,values:[a,b,c],maxRunning,workerContexts,ok,errorMessage,errors,errorIdle:errorQueue.idle()}}));
+})().catch(error=> {clearTimeout(timer);console.log(JSON.stringify({outcome:'unexpected-error',errorName:error.name,errorMessage:error.message}));process.exitCode=2;});

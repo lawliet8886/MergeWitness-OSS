@@ -1,8 +1,8 @@
 {
   "version": 1,
   "baselineFrozenAt": "2026-10-08T02:21:06.792Z",
-  "oracleAdmission": "vendor-manifest.json records the 0.2.1 pre-integration source and expectation admission; baselineFrozenAt belongs to the original ten-case dataset.",
-  "scope": "Twelve small labeled cases, not a general efficacy benchmark. Public cases replay unchanged published library modules inside a newly authored minimal Git harness, not upstream Git merges. New 0.2.1 oracles were frozen before integration; upstream fixes were reviewed, so no blind benchmark is claimed.",
+  "oracleAdmission": "vendor-manifest.json preserves the original admission unchanged; fastq-drain-admission.json separately freezes the bounded retry assets and records prior exploratory/formal execution knowledge.",
+  "scope": "Thirteen small labeled cases: eight synthetic, four unchanged published-module replays, and one minimized concurrent-wait variant using published old fastq and a pinned unmerged/unreleased PR candidate. Not upstream Git merges, a blind benchmark, general efficacy evidence or adoption. Earlier twelve-case receipts are historical.",
   "cases": [
     {
       "id": "tenant-cache-witness",
@@ -109,6 +109,22 @@
       "incident": "https://github.com/mcollina/fastq/issues/80",
       "fix": "https://github.com/mcollina/fastq/pull/81",
       "oracle": "fastq-expected.json"
+    },
+    {
+      "id": "public-fastq-drain-waiters",
+      "kind": "public",
+      "library": "fastq",
+      "label": "preexisting_violation",
+      "provenance": "minimized concurrent-wait variant using unchanged fastq 1.17.0 and pinned open PR source in minimal harness",
+      "expectedRepair": true,
+      "heldOut": false,
+      "incident": "https://github.com/mcollina/fastq/issues/86",
+      "candidate": "https://github.com/mcollina/fastq/pull/87",
+      "candidateCommit": "9ca2ef17eec0d95a4c26dda2c28f41e43b2d4ff0",
+      "oracle": "fastq-drain-expected.json",
+      "admission": "fastq-drain-admission.json",
+      "falseCandidate": "immediate drained resolution, expected retention rejection",
+      "holdoutNote": "Preliminary old and PR executions preceded formal integration. Original sequential history remains inconclusive. No blind claim."
     }
   ]
 }

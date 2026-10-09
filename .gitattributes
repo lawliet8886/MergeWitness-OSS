@@ -3,6 +3,8 @@
 
 # Preserve the exact precommitted fastq oracle bytes, including its CRLF endings.
 fixtures/cases/fastq-expected.json -text
+fixtures/cases/fastq-drain-* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+fixtures/cases/vendor/fastq-pr87-9ca2ef17/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 
 # Preserve the reader bytes sealed in the accepted 0.3.0 release receipt.
 src/report/report.mjs -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

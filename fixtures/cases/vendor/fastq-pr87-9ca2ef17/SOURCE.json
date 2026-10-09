@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/normanzb/fastq",
+  "commit": "9ca2ef17eec0d95a4c26dda2c28f41e43b2d4ff0",
+  "pullRequest": "https://github.com/mcollina/fastq/pull/87",
+  "stateAtReview": "open, unmerged and unreleased",
+  "sourceFile": "queue.js",
+  "license": "ISC",
+  "note": "Unchanged pinned PR source also includes an unrelated empty-resume change. Not a published fixed release or an authored correction."
+}

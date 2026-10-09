@@ -1,0 +1,100 @@
+{
+  "schema": "mergewitness-bounded-queue-admission-v1",
+  "frozenAt": "2026-10-09T15:27:55.015597+00:00",
+  "baseline": "93e3259fa35f0b2cddd557e1a8e142a5c21c7609",
+  "previousAdmissionSha256": "05c9b1419ac1bc21e053b615c5e3f5a587c03c4a858ffd0c87c2cd919df78e67",
+  "previousCasesSha256": "a3ddc8b3e1bc4b9e2bddb4737c349405401cb4bacb5aa472554c258b42dfc469",
+  "formalMergeWitnessRunBeforeAdmission": true,
+  "preliminaryCandidateExecutionBeforeAdmission": true,
+  "preliminaryKnowledge": "The burst/retention expectations were authored before pinned PR execution. Root subsequently executed the pinned PR before formal integration. No blind or held-out claim.",
+  "sources": [
+    {
+      "path": "fixtures/cases/fastq-drain-burst.cjs",
+      "sha256": "d660d29ac7d1ac81efc7862c0f628fb52e5340b664935af740b10a85f8b3b9ce"
+    },
+    {
+      "path": "fixtures/cases/fastq-drain-check.mjs",
+      "sha256": "1f904401480cef98e6e05fd5ab9f7e8d43d57ac68d3cca95acfddedab48ff8d2"
+    },
+    {
+      "path": "fixtures/cases/fastq-drain-expected.json",
+      "sha256": "0514204d5282d60d5cf110cd91baaaf815bb1364a84af2fb3b5aee6779ac5780"
+    },
+    {
+      "path": "fixtures/cases/fastq-drain-immediate.cjs",
+      "sha256": "377473893a4c7d441999377dd7bc3483866a783c153d9cc34f8c4e07c8f0fb8d"
+    },
+    {
+      "path": "fixtures/cases/fastq-drain-ordinary.mjs",
+      "sha256": "adfe522b6e1da258a30aa69569b74580c97103184777531aa9cfaf1129b5860d"
+    },
+    {
+      "path": "fixtures/cases/fastq-drain-retention.cjs",
+      "sha256": "2f3359cc39b94fac2f0a088ad1d966297ee710cf3446ec41e23d5a4854ae6339"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.17.0/LICENSE",
+      "sha256": "c3367f6d01a79d368fc4fbb41b3615fcd92f243d6597ab96742f6f976f9325af"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.17.0/index.cjs",
+      "sha256": "41ec9df7123c13ec8d96fc37912b45ffe584fbb024e0b7c1d9b24ac69bd47bd3"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-1.17.0/package.json",
+      "sha256": "99eff3e7cd8cbaf5826ebdef307326161ce79d9a45207d5017acb749911548c0"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-pr87-9ca2ef17/LICENSE",
+      "sha256": "c3367f6d01a79d368fc4fbb41b3615fcd92f243d6597ab96742f6f976f9325af"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-pr87-9ca2ef17/SOURCE.json",
+      "sha256": "f1757414886ec0e1787eb82ddb8e8e12d1c9d2f5e69da546e3a7ef450062e407"
+    },
+    {
+      "path": "fixtures/cases/vendor/fastq-pr87-9ca2ef17/index.cjs",
+      "sha256": "09fe02f23371a5979be9771e49d9da5797f3dcabc52b3301a7acfec97d68b0dc"
+    },
+    {
+      "path": "fixtures/cases/vendor/reusify-1.0.4/LICENSE",
+      "sha256": "db0054e6418412e4a265236c94d1d8935057c67f367240b01bb2b0b2f9091812"
+    },
+    {
+      "path": "fixtures/cases/vendor/reusify-1.0.4/package.json",
+      "sha256": "1b77d300501f4e04fde008f4fc63049d44e5d4211ee5a14750e402efb92de341"
+    },
+    {
+      "path": "fixtures/cases/vendor/reusify-1.0.4/reusify.js",
+      "sha256": "00894a3dd7016e3751560569cc791c15c2e0607c35a91bd3398dab675026fcf3"
+    }
+  ],
+  "candidate": {
+    "commit": "9ca2ef17eec0d95a4c26dda2c28f41e43b2d4ff0",
+    "state": "open unmerged PR; unreleased; includes unrelated empty-resume change"
+  },
+  "falseCandidate": "Only replaces fastq 1.17.0 drained() with Promise.resolve(); intentionally breaks active waiting.",
+  "limits": {
+    "heapMiB": 256,
+    "workerDeadlineMs": 3000,
+    "childTimeoutMs": 5000,
+    "maximumWaiters": 14000,
+    "heapIsNotRssLimitOrSandbox": true,
+    "unknownTermination": "inconclusive"
+  },
+  "refreezeReason": "Independent review found null/nonobject exceptions and incomplete full retention envelopes accepted by separate projections. Focused RED regressions preceded full typed-envelope validation; projections remain semantically independent. Both prior formal freezes/runs and logs are preserved; old/PR/false stable oracle evidence unchanged. Final formal hosted verification is pending.",
+  "reviewCorrection": {
+    "priorFormalRuns": [
+      "formal-corpus/run-IkGNo5",
+      "formal-corpus-002/run-IxiANX"
+    ],
+    "reviewDefects": [
+      "JSON null accessed before object guard",
+      "retentionA ignored incomplete queueContract",
+      "retentionB ignored incomplete timing sections"
+    ],
+    "normalizerRule": "Require complete typed full worker envelope before projecting independent A/B values; array element types are structural, values and cardinalities are semantic.",
+    "localFormalReplayAfterCorrection": false,
+    "finalHostedFormalVerification": "pending"
+  }
+}
